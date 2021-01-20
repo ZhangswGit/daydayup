@@ -1,0 +1,17 @@
+server:
+  port: 8082
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.50.121:3307/connecttowechat?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: 123456
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: MYSQL
+    show-sql: false
+logging:
+  level:
+    ROOT: info
+    org.springframework.security: debug
+    com.connecttoweChat.mapper: debug

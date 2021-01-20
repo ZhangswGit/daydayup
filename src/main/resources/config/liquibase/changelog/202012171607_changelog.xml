@@ -1,0 +1,36 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="1608192646995-1" author="zhangsw (generated)">
+        <createTable tableName="feed_back">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="title" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(500)"/>
+            <column name="feedback_type" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="process_date" type="DATETIME"/>
+            <column name="screen_shots" type="CLOB"/>
+            <column name="processor" type="VARCHAR(10)"/>
+            <column name="create_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_user" type="VARCHAR(50)"/>
+            <column name="update_user" type="VARCHAR(50)"/>
+            <column name="update_date" type="timestamp"/>
+            <column name="user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1608192646995-2" author="zhangsw (generated)">
+        <addForeignKeyConstraint baseTableName="feed_back" baseColumnNames="user_id" constraintName="FK23sdvsdrwnjsvbsbd" referencedTableName="user"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.connecttoweChat.mapper.RoleMapper">
+
+    <select id="findAllRole" resultMap="com.connecttoweChat.mapper.CommonMapper.RoleResultMap">
+        select
+        r.*
+        from role r
+    </select>
+
+    <select id="findRoleById" resultMap="com.connecttoweChat.mapper.CommonMapper.RoleResultMap">
+        select * from role where id = #{id}
+    </select>
+
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.connecttoweChat.mapper.CommonMapper">
+
+    <resultMap id="UserResultMap" type="com.connecttoweChat.bean.User">
+        <id column="id" property="id"/>
+        <association property="role" column="role_id" select="findRoleByRoleId"/>
+        <association property="organization" column="organization_id" select="findOrganizationByOrganizationId"/>
+    </resultMap>
+
+    <resultMap id="RoleResultMap" type="com.connecttoweChat.bean.Role">
+        <id column="id" property="id"/>
+        <result column="role_name" property="role"
+        <association property="parentRole" column="parent_id" select="findRoleByRoleId"/>
+        <collection property="resources" ofType="com.connecttoweChat.bean.Resource" column="id" select="findAllResourceByRoleId"/>
+    </resultMap>
+
+    <resultMap id="ResourceResultMap" type="com.connecttoweChat.bean.Resource">
+        <id column="id" property="id"/>
+        <association property="parentResource" column="parent_id" select="findResourceByResourceId"/>
+    </resultMap>
+
+    <resultMap id="OrganizationResultMap" type="com.connecttoweChat.bean.Organization">
+        <id column="id" property="id"/>
+        <association property="parentOrganization" column="parent_id" select="findOrganizationByOrganizationId"/>
+    </resultMap>
+
+    <select id="findRoleByRoleId" resultMap="RoleResultMap">
+        select * from role where id = #{id}
+    </select>
+
+    <select id="findUserByUserId" resultMap="UserResultMap">
+        select
+        u.*
+        from user u where id = #{id}
+    </select>
+
+    <select id="findResourceByResourceId" resultMap="ResourceResultMap">
+        select * from resource where id = #{id}
+    </select>
+
+    <select id="findOrganizationByOrganizationId" resultMap="OrganizationResultMap">
+        select * from organization where id = #{id}
+    </select>
+
+    <select id="findAllResourceByRoleId" resultMap="ResourceResultMap">
+        select
+        re.*
+        from resource re
+        left join
+        role_resource rr
+        on rr.resource_id = re.id
+        where rr.role_id = #{id}
+    </select>
+
+
+
+</mapper>

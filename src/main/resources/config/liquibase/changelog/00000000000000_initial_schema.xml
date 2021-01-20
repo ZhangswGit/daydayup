@@ -1,0 +1,186 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="zhangsw (generated)" id="1605663434830-1">
+        <createTable tableName="role">
+            <column autoIncrement="true" name="id" remarks="ID" type="BIGINT" startWith="1">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="role_name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_id" type="INT" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_user" type="VARCHAR(50)" defaultValue="sysAdmin">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="timestamp" defaultValueDate="2020-12-16 16:58:11">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_user" type="VARCHAR(50)"/>
+            <column name="update_date" type="timestamp"/>
+            <column name="is_delete" type="BIT" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_system" type="BIT" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="zhangsw (generated)" id="1605663434830-2">
+        <createTable tableName="user">
+            <column autoIncrement="true" name="id" remarks="ID" type="BIGINT" startWith="1">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" remarks="账号" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pass_word" remarks="密码" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="organization_id" type="BIGINT" defaultValueDate="1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_user" type="VARCHAR(50)" defaultValue="sysAdmin">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="timestamp" defaultValueDate="2020-12-16 16:58:11">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_user" type="VARCHAR(50)"/>
+            <column name="update_date" type="timestamp"/>
+            <column name="is_delete" type="BIT" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_system" type="BIT" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="zhangsw (generated)" id="1605663434830-3">
+        <createTable tableName="access_log">
+            <column autoIncrement="true" name="id" remarks="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="ip" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="access_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_user" type="VARCHAR(50)" defaultValue="sysAdmin">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="timestamp" defaultValueDate="2020-12-16 16:58:11">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_user" type="VARCHAR(50)"/>
+            <column name="update_date" type="timestamp"/>
+            <column name="log_type" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="details" type="LONGTEXT">
+            </column>
+            <column name="message" type="LONGTEXT">
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="zhangsw (generated)" id="1605663434830-4">
+        <createTable tableName="organization">
+            <column autoIncrement="true" name="id" remarks="ID" type="BIGINT" startWith="1">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_id" type="INT" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="VARCHAR(50)" defaultValue="menu">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_user" type="VARCHAR(50)" defaultValue="sysAdmin">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="timestamp" defaultValueDate="2020-12-16 16:58:11">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_user" type="VARCHAR(50)"/>
+            <column name="update_date" type="timestamp"/>
+            <column name="is_delete" type="BIT" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_system" type="BIT" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="zhangsw (generated)" id="1605663434830-5">
+        <createTable tableName="resource">
+            <column autoIncrement="true" name="id" remarks="ID" type="BIGINT" startWith="1">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="resource_name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="resource_path" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_id" type="INT" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="VARCHAR(50)" defaultValue="menu">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_user" type="VARCHAR(50)" defaultValue="sysAdmin">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="timestamp" defaultValueDate="2020-12-16 16:58:11">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_user" type="VARCHAR(50)"/>
+            <column name="update_date" type="timestamp"/>
+            <column name="is_delete" type="BIT" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_system" type="BIT" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="zhangsw (generated)" id="1605663434830-6">
+        <createTable tableName="role_resource">
+            <column name="role_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="resource_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="zhangsw (generated)" id="1605663434830-7">
+        <addForeignKeyConstraint baseTableName="user" baseColumnNames="role_id" constraintName="FKb9v69chffvb8dyjo26al5ngws" referencedTableName="role"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="user" baseColumnNames="organization_id" constraintName="FKcsdsn9802njsdfResda" referencedTableName="organization"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet author="zhangsw (generated)" id="1605663434830-8">
+        <addUniqueConstraint tableName="user" columnNames="name" constraintName="UKfas98asf89afa9sa9"/>
+        <addUniqueConstraint tableName="user" columnNames="phone" constraintName="UKcasdfuigisf3232bdf"/>
+        <addUniqueConstraint tableName="user" columnNames="email" constraintName="UKcsdfnjas09989asdda"/>
+    </changeSet>
+
+
+</databaseChangeLog>

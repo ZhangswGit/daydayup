@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.connecttoweChat.mapper.UserMapper">
+
+    <select id="findAllUser" resultMap="com.connecttoweChat.mapper.CommonMapper.UserResultMap">
+        select
+        u.*
+        from user u
+    </select>
+
+    <select id="findUserById" resultMap="com.connecttoweChat.mapper.CommonMapper.UserResultMap">
+        select
+        u.*
+        from user u where id = #{id}
+    </select>
+
+    <select id="findUserByNameOrPhoneOrEmail" resultMap="com.connecttoweChat.mapper.CommonMapper.UserResultMap">
+        select
+        u.*
+        from user u where name = #{unique} or phone = #{unique} or email = #{unique}
+    </select>
+
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.connecttoweChat.mapper.FeedBackMapper">
+
+    <resultMap id="FeedBackResultMap" type="com.connecttoweChat.bean.FeedBack">
+        <id column="id" property="id"/>
+    </resultMap>
+
+    <select id="findAllFeedBack" resultMap="FeedBackResultMap">
+        select
+        t.*
+        from feed_back t
+    </select>
+
+    <select id="findFeedBackById" resultMap="FeedBackResultMap">
+        select
+        t.*
+        from feed_back t where id = #{id}
+    </select>
+
+</mapper>
