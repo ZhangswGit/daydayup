@@ -5,19 +5,50 @@
     <select id="findAllUser" resultMap="com.connecttoweChat.mapper.CommonMapper.UserResultMap">
         select
         u.*
-        from user u
+        from user u where 1=1
+        <if test="query.phone != null and query.phone != ''">
+            and u.phone like CONCAT('%',#{query.phone},'%')
+        </if>
+        <if test="query.email != null and query.email != ''">
+            and u.email like CONCAT('%',#{query.email},'%')
+        </if>
+        <if test="query.nickName != null and query.nickName != ''">
+            and u.nick_name like CONCAT('%',#{query.nickName},'%')
+        </if>
+        <include refid="com.connecttoweChat.mapper.CommonMapper.condition"></include>
     </select>
 
     <select id="findUserById" resultMap="com.connecttoweChat.mapper.CommonMapper.UserResultMap">
         select
         u.*
-        from user u where id = #{id}
+        from user u where u.id = #{id}
+        <include refid="com.connecttoweChat.mapper.CommonMapper.condition"></include>
     </select>
 
     <select id="findUserByNameOrPhoneOrEmail" resultMap="com.connecttoweChat.mapper.CommonMapper.UserResultMap">
         select
         u.*
-        from user u where name = #{unique} or phone = #{unique} or email = #{unique}
+        from user u where (u.name = #{unique} or u.phone = #{unique} or u.email = #{unique})
+        <include refid="com.connecttoweChat.mapper.CommonMapper.condition"></include>
     </select>
+
+    <select id="findUserByNameOrPhoneOrEmail" resultMap="com.connecttoweChat.mapper.CommonMapper.UserResultMap">
+        select
+        u.*
+        from user u where (u.phone = #{unique} or u.email = #{unique})
+        <include refid="com.connecttoweChat.mapper.CommonMapper.condition"></include>
+    </select>
+
+    <select id="findUserByPhoneOrEmailWithOutId" resultMap="com.connecttoweChat.mapper.CommonMapper.UserResultMap">
+        select
+        u.*
+        from user u where (u.phone = #{unique} or u.email = #{unique}) and u.id != #{id}
+        <include refid="com.connecttoweChat.mapper.CommonMapper.condition"></include>
+    </select>
+
+    <update id="deleteByLogic">
+        update user set is_delete = id where id = #{id}
+        <include refid="com.connecttoweChat.mapper.CommonMapper.condition"></include>
+    </update>
 
 </mapper>

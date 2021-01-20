@@ -22,7 +22,7 @@
             </column>
             <column name="update_user" type="VARCHAR(50)"/>
             <column name="update_date" type="timestamp"/>
-            <column name="is_delete" type="BIT" defaultValue="0">
+            <column name="is_delete" type="BIGINT" defaultValue="0">
                 <constraints nullable="false"/>
             </column>
             <column name="is_system" type="BIT" defaultValue="0">
@@ -61,7 +61,7 @@
             </column>
             <column name="update_user" type="VARCHAR(50)"/>
             <column name="update_date" type="timestamp"/>
-            <column name="is_delete" type="BIT" defaultValue="0">
+            <column name="is_delete" type="BIGINT" defaultValue="0">
                 <constraints nullable="false"/>
             </column>
             <column name="is_system" type="BIT" defaultValue="0">
@@ -119,7 +119,7 @@
             </column>
             <column name="update_user" type="VARCHAR(50)"/>
             <column name="update_date" type="timestamp"/>
-            <column name="is_delete" type="BIT" defaultValue="0">
+            <column name="is_delete" type="BIGINT" defaultValue="0">
                 <constraints nullable="false"/>
             </column>
             <column name="is_system" type="BIT" defaultValue="0">
@@ -152,7 +152,7 @@
             </column>
             <column name="update_user" type="VARCHAR(50)"/>
             <column name="update_date" type="timestamp"/>
-            <column name="is_delete" type="BIT" defaultValue="0">
+            <column name="is_delete" type="BIGINT" defaultValue="0">
                 <constraints nullable="false"/>
             </column>
             <column name="is_system" type="BIT" defaultValue="0">
@@ -177,9 +177,8 @@
                                  referencedColumnNames="id"/>
     </changeSet>
     <changeSet author="zhangsw (generated)" id="1605663434830-8">
-        <addUniqueConstraint tableName="user" columnNames="name" constraintName="UKfas98asf89afa9sa9"/>
-        <addUniqueConstraint tableName="user" columnNames="phone" constraintName="UKcasdfuigisf3232bdf"/>
-        <addUniqueConstraint tableName="user" columnNames="email" constraintName="UKcsdfnjas09989asdda"/>
+        <addUniqueConstraint tableName="user" columnNames="phone, is_delete" constraintName="UKcasdfuigisf3232bdf"/>
+        <addUniqueConstraint tableName="user" columnNames="email, is_delete" constraintName="UKcsdfnjas09989asdda"/>
     </changeSet>
 
 

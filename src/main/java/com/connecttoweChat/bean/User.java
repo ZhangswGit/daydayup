@@ -1,12 +1,14 @@
 package com.connecttoweChat.bean;
 
 import com.baomidou.mybatisplus.annotation.*;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.Size;
 import java.time.Instant;
 
 @Data
+@Builder
 @TableName("user")
 public class User extends SystemBean{
 
@@ -15,6 +17,9 @@ public class User extends SystemBean{
 
     @TableField("name")
     private String name;
+
+    @TableField("nick_name")
+    private String nickName;
 
     @TableField("pass_word")
     private String passWord;

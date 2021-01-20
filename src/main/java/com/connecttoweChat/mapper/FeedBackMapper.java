@@ -12,5 +12,5 @@ import java.util.Optional;
 @Mapper
 public interface FeedBackMapper extends BaseMapper<FeedBack> {
     List<FeedBack> findAllFeedBack();
-    FeedBack findFeedBackById(long id);
+    Optional<FeedBack> findFeedBackById(long id);
 }
