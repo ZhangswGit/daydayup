@@ -25,6 +25,9 @@ public class Resource extends SystemBean{
     private CatalogType type;
 
     @TableField("parent_id")
+    private long parentId;
+
+    @TableField(exist = false)
     private Resource parentResource;
 
 }

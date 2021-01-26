@@ -1,6 +1,7 @@
 package com.connecttoweChat.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.connecttoweChat.bean.Resource;
 import org.apache.ibatis.annotations.Mapper;
 

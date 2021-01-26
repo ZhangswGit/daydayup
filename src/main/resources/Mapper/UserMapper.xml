@@ -15,40 +15,40 @@
         <if test="query.nickName != null and query.nickName != ''">
             and u.nick_name like CONCAT('%',#{query.nickName},'%')
         </if>
-        <include refid="com.connecttoweChat.mapper.CommonMapper.condition"></include>
+        <include refid="com.connecttoweChat.mapper.CommonMapper.condition"/>
     </select>
 
     <select id="findUserById" resultMap="com.connecttoweChat.mapper.CommonMapper.UserResultMap">
         select
         u.*
         from user u where u.id = #{id}
-        <include refid="com.connecttoweChat.mapper.CommonMapper.condition"></include>
+        <include refid="com.connecttoweChat.mapper.CommonMapper.condition"/>
     </select>
 
     <select id="findUserByNameOrPhoneOrEmail" resultMap="com.connecttoweChat.mapper.CommonMapper.UserResultMap">
         select
         u.*
         from user u where (u.name = #{unique} or u.phone = #{unique} or u.email = #{unique})
-        <include refid="com.connecttoweChat.mapper.CommonMapper.condition"></include>
+        <include refid="com.connecttoweChat.mapper.CommonMapper.condition"/>
     </select>
 
     <select id="findUserByNameOrPhoneOrEmail" resultMap="com.connecttoweChat.mapper.CommonMapper.UserResultMap">
         select
         u.*
         from user u where (u.phone = #{unique} or u.email = #{unique})
-        <include refid="com.connecttoweChat.mapper.CommonMapper.condition"></include>
+        <include refid="com.connecttoweChat.mapper.CommonMapper.condition"/>
     </select>
 
     <select id="findUserByPhoneOrEmailWithOutId" resultMap="com.connecttoweChat.mapper.CommonMapper.UserResultMap">
         select
         u.*
         from user u where (u.phone = #{unique} or u.email = #{unique}) and u.id != #{id}
-        <include refid="com.connecttoweChat.mapper.CommonMapper.condition"></include>
+        <include refid="com.connecttoweChat.mapper.CommonMapper.condition"/>
     </select>
 
     <update id="deleteByLogic">
         update user set is_delete = id where id = #{id}
-        <include refid="com.connecttoweChat.mapper.CommonMapper.condition"></include>
+        <include refid="com.connecttoweChat.mapper.CommonMapper.condition"/>
     </update>
 
 </mapper>

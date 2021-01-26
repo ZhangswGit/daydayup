@@ -1,5 +1,6 @@
 package com.connecttoweChat;
 
+import com.connecttoweChat.config.DefaultProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan("com.connecttoweChat")
-@EnableConfigurationProperties({LiquibaseProperties.class})
+@EnableConfigurationProperties({LiquibaseProperties.class, DefaultProperties.class})
 @Slf4j
 public class ConnecttoweChatApplication {
 

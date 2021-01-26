@@ -7,12 +7,15 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
+import com.connecttoweChat.config.DefaultProperties;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
 
@@ -25,12 +28,18 @@ import java.util.Map;
 @Slf4j
 public class ALiYunDomainsTest {
 
-    private static String regionId = "cn-hangzhou"; //必填固定值，必须为“cn-hanghou”
-    private static String accessKeyId = "LTAI4G7MCSbGgJc7XkCoJQkt"; // your accessKey
-    private static String accessKeySecret = "if0jrVTZT9LAohQSlJTp9gWDV2xF3G";// your accessSecret
-    private static IClientProfile profile = DefaultProfile.getProfile(regionId, accessKeyId, accessKeySecret);
-    private static IAcsClient client = new DefaultAcsClient(profile);
+    @Autowired
+    private DefaultProperties defaultProperties;
+
+    private static IClientProfile profile;
+    private static IAcsClient client;
     private static Gson gson = new Gson();
+
+    @Before
+    void init(){
+        profile = DefaultProfile.getProfile(defaultProperties.getRegionId(), defaultProperties.getAccessKeyId(), defaultProperties.getAccessKeySecret());
+        client = new DefaultAcsClient(profile);
+    }
 
     // 若报Can not find endpoint to access异常，请添加以下此行代码
     // DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", "Alidns", "alidns.aliyuncs.com");
