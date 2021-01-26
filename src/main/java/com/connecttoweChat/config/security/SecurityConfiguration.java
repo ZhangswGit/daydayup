@@ -78,6 +78,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(securityFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/admin/v1/auth").permitAll()
+                .antMatchers("/admin/v1/pac").permitAll()
                 .antMatchers("/user/v1/*").hasAuthority(AuthConstant.ADMIN)
                 .antMatchers("/admin/v1/**").hasAuthority(AuthConstant.ADMIN);
     }

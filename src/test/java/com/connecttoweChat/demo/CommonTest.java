@@ -8,22 +8,23 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.util.CollectionUtils;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.security.Key;
 import java.time.Instant;
-import java.time.OffsetDateTime;
-import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -86,7 +87,7 @@ public class CommonTest {
     }
 
     @Test
-    void test() {
+    void testInstant() {
         Instant now = Instant.now();
         log.info(now + "");
         Instant instant = Instant.now().minus(5, ChronoUnit.MINUTES);
@@ -94,7 +95,7 @@ public class CommonTest {
     }
 
     @Test
-    void sort() {
+    void sortTest() {
         List<Integer> list = Arrays.asList(1, 3, 89, 6, 7, 65, 4, 2);
         list.stream().sorted(((o1, o2) -> {
             if (o1 < o2) {
@@ -127,9 +128,44 @@ public class CommonTest {
         AsyncResult<String> ars = new AsyncResult<>(substring);
     }
 
+    @Test
+    void testLoad(){
+        try {
+            Resource resource = new ClassPathResource("config/resource/auto-config-url.txt");
+            InputStream is = resource.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder("");
+            String data = "";
+            while((data = br.readLine()) != null) {
+                System.out.println(data);
+                sb.append(data);
+            }
+            String.format(sb.toString(), "http://127.0.0.1");
+            br.close();
+            isr.close();
+            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testLoadIso(){
+        try {
+            URL url = this.getClass().getClassLoader().getResource("config/resource/pac-app.app");
+            File file = new File(url.getPath());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         A zs = A.builder().name("zs").age(20).build();
         log.info(zs.toString());
+        String ss = " aaaa\"%s\"";
+        log.info(String.format(ss, 123));
+        log.info(ss);
     }
 
     public static String sleepTest(){

@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
@@ -21,6 +22,7 @@ import java.util.Optional;
  * @Descripe : TODO
  * @Version : 0.1
  */
+@Service
 public class UserService extends MybatisPlusServiceEnhancer<UserMapper, User>{
     @Autowired
     UserMapper userMapper;
