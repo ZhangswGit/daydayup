@@ -102,4 +102,5 @@ public class ALiYunDomainsTest extends AbstractBeanTest {
         Map map = gson.fromJson(request, Map.class);
         log.info((String) map.get("recordId"));
     }
+
 }
