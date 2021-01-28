@@ -9,11 +9,8 @@ import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 import com.connecttoweChat.config.DefaultProperties;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,7 +23,7 @@ import java.util.Map;
  * @Version : 0.1
  */
 @Slf4j
-public class ALiYunDomainsTest {
+public class ALiYunDomainsTest extends AbstractBeanTest {
 
     @Autowired
     private DefaultProperties defaultProperties;
@@ -35,7 +32,7 @@ public class ALiYunDomainsTest {
     private static IAcsClient client;
     private static Gson gson = new Gson();
 
-    @Before
+    @BeforeEach
     void init(){
         profile = DefaultProfile.getProfile(defaultProperties.getRegionId(), defaultProperties.getAccessKeyId(), defaultProperties.getAccessKeySecret());
         client = new DefaultAcsClient(profile);
@@ -43,7 +40,6 @@ public class ALiYunDomainsTest {
 
     // 若报Can not find endpoint to access异常，请添加以下此行代码
     // DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", "Alidns", "alidns.aliyuncs.com");
-
 
     @Test
     public void DescribeDomainRecords() {
@@ -65,7 +61,7 @@ public class ALiYunDomainsTest {
         AddDomainRecordRequest request = new AddDomainRecordRequest();
         request.setRegionId("cn-hangzhou");
         request.setDomainName("alinun.top");
-        request.setRR("eic");
+        request.setRR("eic1");
         request.setType("A");
         request.setLine("default");
         request.setValue("121.89.200.214");
