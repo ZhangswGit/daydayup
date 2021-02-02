@@ -24,9 +24,9 @@ public class ALiYunDomainRecordService {
     @Autowired
     private DefaultProperties defaultProperties;
 
-    IAcsClient client;
+    private IAcsClient client;
 
-    Gson gson;
+    private Gson gson;
 
     @PostConstruct
     public void init() {
@@ -37,7 +37,6 @@ public class ALiYunDomainRecordService {
         log.info("create aliyun IClientProfile success! param:{},{},{}", defaultProperties.getRegionId(), defaultProperties.getAccessKeyId(), defaultProperties.getAccessKeySecret());
     }
 
-
     public String createDomainRecord(String platformDomain) {
 
         AddDomainRecordRequest request = new AddDomainRecordRequest();
@@ -46,7 +45,7 @@ public class ALiYunDomainRecordService {
         request.setRR(StringUtils.substring(platformDomain, platformDomain.lastIndexOf("/") + 1, platformDomain.indexOf(defaultProperties.getDomainName())));
         request.setType(defaultProperties.getType());
         request.setLine(defaultProperties.getLine());
-        request.setValue(defaultProperties.getServerIp());
+        request.setValue(defaultProperties.getValue());
 
         try {
             AddDomainRecordResponse response = client.getAcsResponse(request);

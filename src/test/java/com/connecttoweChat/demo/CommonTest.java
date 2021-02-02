@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.compress.utils.IOUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
@@ -16,10 +17,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.Key;
 import java.time.Instant;
@@ -105,7 +104,7 @@ public class CommonTest {
     }
 
     @Test
-    void notNull(){
+    void notNull() {
         List<Integer> list = new ArrayList<>();
         log.info(ObjectUtils.isEmpty(list) + "");
     }
@@ -115,13 +114,13 @@ public class CommonTest {
         Map<String, String> map = new HashMap<String, String>();
         map.put("1", "1");
         map.put("2", "2");
-        map.forEach((k,v) -> {
+        map.forEach((k, v) -> {
             log.info(k + " - " + v);
         });
     }
 
     @Test
-    void sub(){
+    void sub() {
         String platformDomain = "https://11a12fdb-8717-4821-b687-56632587dfa7-email-isolation.tistarsec.com";
         String substring = StringUtils.substring(platformDomain, platformDomain.lastIndexOf("/") + 1, platformDomain.indexOf(".tistarsec.com"));
         log.info(substring);
@@ -129,7 +128,7 @@ public class CommonTest {
     }
 
     @Test
-    void testLoad(){
+    void testLoad() {
         try {
             Resource resource = new ClassPathResource("config/resource/auto-config-url.txt");
             InputStream is = resource.getInputStream();
@@ -137,7 +136,7 @@ public class CommonTest {
             BufferedReader br = new BufferedReader(isr);
             StringBuilder sb = new StringBuilder("");
             String data = "";
-            while((data = br.readLine()) != null) {
+            while ((data = br.readLine()) != null) {
                 System.out.println(data);
                 sb.append(data);
             }
@@ -151,7 +150,7 @@ public class CommonTest {
     }
 
     @Test
-    public void testLoadIso(){
+    public void testLoadIso() {
         try {
             URL url = this.getClass().getClassLoader().getResource("config/resource/pac-app.app");
             File file = new File(url.getPath());
@@ -168,7 +167,7 @@ public class CommonTest {
         log.info(ss);
     }
 
-    public static String sleepTest(){
+    public static String sleepTest() {
         try {
             Thread.sleep(10000l);
         } catch (InterruptedException e) {
@@ -177,28 +176,73 @@ public class CommonTest {
         return "ABC";
     }
 
-    static class A{
+    static class A {
         private String name;
         private int age;
 
-        public A(){}
-        public A(String name, int age){this.name = name;this.age = age;}
+        public A() {
+        }
 
-        public A build(){
+        public A(String name, int age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        public A build() {
             return new A(this.name, this.age);
         }
 
-        public static A builder(){
+        public static A builder() {
             return new A();
         }
 
-        public A name(String name){this.name = name; return this;}
-        public A age(int age){this.age = age; return this;}
+        public A name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public A age(int age) {
+            this.age = age;
+            return this;
+        }
     }
 
     @Test
-    public void parse(){
+    public void parse() {
         Instant nowTime = Instant.parse("2020-12-31T12:30:30Z");
         log.info(nowTime + "");
+    }
+
+    @Test
+    public void urlTest() {
+        String host = "@qq";
+        String domain = String.format("http://%s", host);
+        try {
+            new URL(domain);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void ryhFileCopy() {
+        String filePath = "D:" + File.separator + "chrom" + File.separator + "ryh" + File.separator + "cflr_load_perform_ryh_09_03-golden.csv";
+        File file = new File(filePath);
+
+        for (int i = 4; i < 304; i++) {
+            try (InputStream inputStream = new FileInputStream(file);) {
+
+                String outFilePath = "D:" + File.separator + "chrom" + File.separator + "ryh" + File.separator + "cflr_load_perform_ryh_09_" + (i < 10 ? ("0" + i) : i) + "-golden.csv";
+                File outFile = new File(outFilePath);
+                outFile.createNewFile();
+                try (OutputStream outputStream = new FileOutputStream(outFile)) {
+                    IOUtils.copy(inputStream, outputStream);
+                }
+            } catch (Exception e) {
+
+            }
+        }
+
+        log.info("完成！");
     }
 }
