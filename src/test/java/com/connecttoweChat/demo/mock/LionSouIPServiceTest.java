@@ -1,5 +1,6 @@
-package com.connecttoweChat.demo;
+package com.connecttoweChat.demo.mock;
 
+import com.connecttoweChat.demo.mock.AbstractBeanTest;
 import com.connecttoweChat.service.LionSouIPService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ public class LionSouIPServiceTest extends AbstractBeanTest {
     
     @Test
     public void getIp(){
-        String ip = "218.68.136.35";
+        String ip = "103.85.173.226";
         String county = lionSouIPService.getCountry(ip);
         log.info(county);
     }

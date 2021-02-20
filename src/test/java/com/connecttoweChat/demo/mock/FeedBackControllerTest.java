@@ -1,5 +1,6 @@
-package com.connecttoweChat.demo;
+package com.connecttoweChat.demo.mock;
 
+import com.connecttoweChat.demo.mock.AbstractBeanTest;
 import com.connecttoweChat.model.request.CreateFeedbackRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;

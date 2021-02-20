@@ -1,6 +1,7 @@
-package com.connecttoweChat.demo;
+package com.connecttoweChat.demo.mock;
 
 import com.connecttoweChat.ConnecttoweChatApplication;
+import com.connecttoweChat.demo.CommonTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
@@ -16,7 +17,7 @@ import org.springframework.web.context.WebApplicationContext;
 @WebAppConfiguration
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ConnecttoweChatApplication.class)
-public class AbstractBeanTest extends CommonTest{
+public class AbstractBeanTest extends CommonTest {
 
     @Autowired
     private WebApplicationContext context;

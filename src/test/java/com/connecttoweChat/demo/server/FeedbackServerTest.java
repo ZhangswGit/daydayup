@@ -1,5 +1,6 @@
-package com.connecttoweChat.demo;
+package com.connecttoweChat.demo.server;
 
+import com.connecttoweChat.demo.CommonTest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -19,7 +20,7 @@ import java.io.File;
 import java.io.IOException;
 
 @Slf4j
-public class ServerTest extends CommonTest {
+public class FeedbackServerTest extends CommonTest {
 
     @Test
     public void createFeedback() throws IOException {

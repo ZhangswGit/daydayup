@@ -1,7 +1,8 @@
-package com.connecttoweChat.demo;
+package com.connecttoweChat.demo.mock;
 
 import com.connecttoweChat.bean.Resource;
 import com.connecttoweChat.bean.Role;
+import com.connecttoweChat.demo.mock.AbstractBeanTest;
 import com.connecttoweChat.mapper.RoleMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ import java.util.Arrays;
  *@Version : 0.1
  */
 @Slf4j
-public class RoleControllerTest extends AbstractBeanTest{
+public class RoleControllerTest extends AbstractBeanTest {
 
     @Autowired
     private RoleMapper roleMapper;

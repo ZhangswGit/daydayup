@@ -1,4 +1,4 @@
-package com.connecttoweChat.demo;
+package com.connecttoweChat.demo.mock;
 
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
@@ -8,6 +8,7 @@ import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 import com.connecttoweChat.config.DefaultProperties;
+import com.connecttoweChat.demo.mock.AbstractBeanTest;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
