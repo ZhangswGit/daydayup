@@ -1,0 +1,393 @@
+2021/02/20 11:31:51 [notice] 2412#18056: using the "select" event method
+2021/02/20 11:31:51 [notice] 2412#18056: openresty/1.13.6.2
+2021/02/20 11:31:51 [notice] 2412#18056: start worker processes
+2021/02/20 11:31:51 [notice] 2412#18056: start worker process 22084
+2021/02/20 11:31:51 [notice] 22084#18388: openresty/1.13.6.2
+2021/02/20 11:31:51 [notice] 22084#18388: create thread 17532
+2021/02/20 11:31:51 [notice] 22084#18388: create thread 228
+2021/02/20 11:31:51 [notice] 22084#18388: create thread 3488
+2021/02/20 11:32:57 [warn] 22084#17532: *3 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.jpg"
+2021/02/20 11:32:57 [error] 22084#17532: *3 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.jpg"
+2021/02/20 11:33:57 [warn] 22084#17532: *3 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.jpg"
+2021/02/20 11:33:57 [error] 22084#17532: *3 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.jpg"
+2021/02/20 15:20:06 [notice] 16568#20420: using the "select" event method
+2021/02/20 15:20:06 [notice] 16568#20420: openresty/1.13.6.2
+2021/02/20 15:20:06 [notice] 16568#20420: start worker processes
+2021/02/20 15:20:06 [notice] 16568#20420: start worker process 17044
+2021/02/20 15:20:06 [notice] 17044#4476: openresty/1.13.6.2
+2021/02/20 15:20:06 [notice] 17044#4476: create thread 4036
+2021/02/20 15:20:06 [notice] 17044#4476: create thread 20340
+2021/02/20 15:20:06 [notice] 17044#4476: create thread 12956
+2021/02/20 15:21:29 [warn] 17044#4036: *1 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.jpg"
+2021/02/20 15:21:29 [error] 17044#4036: *1 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.jpg"
+2021/02/20 15:22:29 [warn] 17044#4036: *1 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.jpg"
+2021/02/20 15:22:29 [error] 17044#4036: *1 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.jpg"
+2021/02/20 15:22:50 [error] 17044#4036: *1 lua entry thread aborted: runtime error: ./lualib/testcode/testlua.lua:20: attempt to concatenate local 'name' (a nil value)
+stack traceback:
+coroutine 0:
+	./lualib/testcode/testlua.lua: in function <./lualib/testcode/testlua.lua:1>, client: 192.168.50.121, server: localhost, request: "GET /luatest HTTP/1.1", host: "192.168.50.121:8070"
+2021/02/20 15:23:50 [warn] 17044#4036: *5 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:23:50 [error] 17044#4036: *5 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:24:50 [warn] 17044#4036: *5 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:24:50 [error] 17044#4036: *5 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:31:50 [emerg] 20960#13880: directive "set" is not terminated by ";" in ./conf/nginx.conf:60
+2021/02/20 15:33:28 [notice] 3668#14960: using the "select" event method
+2021/02/20 15:33:28 [notice] 3668#14960: openresty/1.13.6.2
+2021/02/20 15:33:28 [notice] 3668#14960: start worker processes
+2021/02/20 15:33:28 [notice] 3668#14960: start worker process 20116
+2021/02/20 15:33:28 [notice] 20116#14352: openresty/1.13.6.2
+2021/02/20 15:33:28 [notice] 20116#14352: create thread 15692
+2021/02/20 15:33:28 [notice] 20116#14352: create thread 2088
+2021/02/20 15:33:28 [notice] 20116#14352: create thread 15892
+2021/02/20 15:33:32 [error] 20116#15692: *2 lua entry thread aborted: runtime error: ...Evn/openresty-1.13.6.2-win64/lualib/testcode/testlua.lua:20: attempt to concatenate local 'name' (a nil value)
+stack traceback:
+coroutine 0:
+	...Evn/openresty-1.13.6.2-win64/lualib/testcode/testlua.lua: in function <...Evn/openresty-1.13.6.2-win64/lualib/testcode/testlua.lua:1>, client: 192.168.50.121, server: localhost, request: "GET /luatest HTTP/1.1", host: "192.168.50.121:8070"
+2021/02/20 15:34:32 [warn] 20116#15692: *1 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:34:32 [error] 20116#15692: *1 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:35:32 [warn] 20116#15692: *1 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:35:32 [error] 20116#15692: *1 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:37:13 [notice] 14804#6140: using the "select" event method
+2021/02/20 15:37:13 [notice] 14804#6140: openresty/1.13.6.2
+2021/02/20 15:37:13 [notice] 14804#6140: start worker processes
+2021/02/20 15:37:13 [notice] 14804#6140: start worker process 14320
+2021/02/20 15:37:13 [notice] 14320#12208: openresty/1.13.6.2
+2021/02/20 15:37:13 [notice] 14320#12208: create thread 20656
+2021/02/20 15:37:13 [notice] 14320#12208: create thread 21248
+2021/02/20 15:37:13 [notice] 14320#12208: create thread 21244
+2021/02/20 15:37:16 [error] 14320#20656: *1 lua entry thread aborted: runtime error: ...Evn/openresty-1.13.6.2-win64/lualib/testcode/testlua.lua:19: attempt to concatenate local 'name' (a nil value)
+stack traceback:
+coroutine 0:
+	...Evn/openresty-1.13.6.2-win64/lualib/testcode/testlua.lua: in function <...Evn/openresty-1.13.6.2-win64/lualib/testcode/testlua.lua:1>, client: 192.168.50.121, server: localhost, request: "GET /luatest HTTP/1.1", host: "192.168.50.121:8070"
+2021/02/20 15:38:08 [notice] 18572#3744: using the "select" event method
+2021/02/20 15:38:08 [notice] 18572#3744: openresty/1.13.6.2
+2021/02/20 15:38:08 [notice] 18572#3744: start worker processes
+2021/02/20 15:38:08 [notice] 18572#3744: start worker process 22180
+2021/02/20 15:38:08 [notice] 22180#19144: openresty/1.13.6.2
+2021/02/20 15:38:08 [notice] 22180#19144: create thread 5036
+2021/02/20 15:38:08 [notice] 22180#19144: create thread 18468
+2021/02/20 15:38:08 [notice] 22180#19144: create thread 21144
+2021/02/20 15:39:28 [warn] 22180#5036: *2 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:39:28 [error] 22180#5036: *2 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:40:28 [warn] 22180#5036: *2 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:40:28 [error] 22180#5036: *2 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:42:49 [notice] 9312#9884: using the "select" event method
+2021/02/20 15:42:49 [notice] 9312#9884: using the "select" event method
+2021/02/20 15:42:49 [notice] 9312#9884: openresty/1.13.6.2
+2021/02/20 15:42:49 [notice] 9312#9884: openresty/1.13.6.2
+2021/02/20 15:42:49 [info] 9312#9884: OS: 300000 build:18363, "", suite:300, type:1
+2021/02/20 15:42:49 [notice] 9312#9884: start worker processes
+2021/02/20 15:42:49 [notice] 9312#9884: start worker processes
+2021/02/20 15:42:49 [notice] 9312#9884: start worker process 1936
+2021/02/20 15:42:49 [notice] 9312#9884: start worker process 1936
+2021/02/20 15:42:49 [notice] 1936#18476: openresty/1.13.6.2
+2021/02/20 15:42:49 [notice] 1936#18476: openresty/1.13.6.2
+2021/02/20 15:42:49 [info] 1936#18476: OS: 300000 build:18363, "", suite:300, type:1
+2021/02/20 15:42:49 [notice] 1936#18476: create thread 10380
+2021/02/20 15:42:49 [notice] 1936#18476: create thread 10380
+2021/02/20 15:42:49 [notice] 1936#18476: create thread 19540
+2021/02/20 15:42:49 [notice] 1936#18476: create thread 19540
+2021/02/20 15:42:49 [notice] 1936#18476: create thread 14920
+2021/02/20 15:42:49 [notice] 1936#18476: create thread 14920
+2021/02/20 15:42:54 [debug] 1936#10380: *1 [lua] testlua.lua:19: hello:123
+2021/02/20 15:43:54 [info] 1936#10380: *2 client timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while waiting for request, client: 192.168.50.121, server: 0.0.0.0:8070
+2021/02/20 15:43:55 [warn] 1936#10380: *1 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:43:55 [warn] 1936#10380: *1 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:43:55 [error] 1936#10380: *1 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:43:55 [error] 1936#10380: *1 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:44:13 [info] 1936#10380: *1 client prematurely closed connection, so upstream connection is closed too while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:45:13 [warn] 1936#10380: *5 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.jpg"
+2021/02/20 15:45:13 [warn] 1936#10380: *5 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.jpg"
+2021/02/20 15:45:13 [error] 1936#10380: *5 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.jpg"
+2021/02/20 15:45:13 [error] 1936#10380: *5 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.jpg"
+2021/02/20 15:45:22 [debug] 1936#10380: *8 [lua] testlua.lua:19: hello:123
+2021/02/20 15:45:22 [info] 1936#10380: *5 client prematurely closed connection, so upstream connection is closed too while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.jpg"
+2021/02/20 15:46:22 [warn] 1936#10380: *8 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:46:22 [warn] 1936#10380: *8 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:46:22 [error] 1936#10380: *8 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:46:22 [error] 1936#10380: *8 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:47:22 [warn] 1936#10380: *8 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:47:22 [warn] 1936#10380: *8 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:47:22 [error] 1936#10380: *8 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:47:22 [error] 1936#10380: *8 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/luatest"
+2021/02/20 15:50:32 [debug] 1936#10380: *11 [lua] log.lua:3: In log_by_lua_file...
+2021/02/20 15:50:32 [debug] 1936#10380: *11 [lua] log.lua:50: End log_by_lua_file...
+2021/02/20 15:50:32 [info] 1936#10380: *12 client prematurely closed connection, so upstream connection is closed too while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.jpg"
+2021/02/20 15:51:32 [warn] 1936#10380: *11 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.pdf"
+2021/02/20 15:51:32 [warn] 1936#10380: *11 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.pdf"
+2021/02/20 15:51:32 [error] 1936#10380: *11 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.pdf"
+2021/02/20 15:51:32 [error] 1936#10380: *11 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.pdf"
+2021/02/20 15:52:32 [warn] 1936#10380: *11 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.pdf"
+2021/02/20 15:52:32 [warn] 1936#10380: *11 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.pdf"
+2021/02/20 15:52:32 [error] 1936#10380: *11 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.pdf"
+2021/02/20 15:52:32 [error] 1936#10380: *11 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.pdf"
+2021/02/20 15:53:17 [debug] 1936#10380: *11 [lua] log.lua:3: In log_by_lua_file...
+2021/02/20 15:53:17 [debug] 1936#10380: *11 [lua] log.lua:50: End log_by_lua_file...
+2021/02/20 15:54:06 [debug] 1936#10380: *16 [lua] log.lua:3: In log_by_lua_file...
+2021/02/20 15:54:06 [debug] 1936#10380: *16 [lua] log.lua:50: End log_by_lua_file...
+2021/02/20 15:54:17 [warn] 1936#10380: *11 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.pdf"
+2021/02/20 15:54:17 [warn] 1936#10380: *11 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.pdf"
+2021/02/20 15:54:17 [error] 1936#10380: *11 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.pdf"
+2021/02/20 15:54:17 [error] 1936#10380: *11 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.pdf"
+2021/02/20 15:55:17 [warn] 1936#10380: *11 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.pdf"
+2021/02/20 15:55:17 [warn] 1936#10380: *11 upstream server temporarily disabled while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.pdf"
+2021/02/20 15:55:17 [error] 1936#10380: *11 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.pdf"
+2021/02/20 15:55:17 [error] 1936#10380: *11 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 192.168.50.121, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://[::1]:8082/favicon.ico", host: "192.168.50.121:8070", referrer: "http://192.168.50.121:8070/chrom/1.pdf"
+2021/02/20 15:59:17 [notice] 10684#20508: using the "select" event method
+2021/02/20 15:59:17 [notice] 10684#20508: using the "select" event method
+2021/02/20 15:59:17 [notice] 10684#20508: openresty/1.13.6.2
+2021/02/20 15:59:17 [notice] 10684#20508: openresty/1.13.6.2
+2021/02/20 15:59:17 [info] 10684#20508: OS: 300000 build:18363, "", suite:300, type:1
+2021/02/20 15:59:17 [notice] 10684#20508: start worker processes
+2021/02/20 15:59:17 [notice] 10684#20508: start worker processes
+2021/02/20 15:59:17 [notice] 10684#20508: start worker process 20060
+2021/02/20 15:59:17 [notice] 10684#20508: start worker process 20060
+2021/02/20 15:59:17 [notice] 20060#16424: openresty/1.13.6.2
+2021/02/20 15:59:17 [notice] 20060#16424: openresty/1.13.6.2
+2021/02/20 15:59:17 [info] 20060#16424: OS: 300000 build:18363, "", suite:300, type:1
+2021/02/20 15:59:17 [notice] 20060#16424: create thread 20656
+2021/02/20 15:59:17 [notice] 20060#16424: create thread 20656
+2021/02/20 15:59:17 [notice] 20060#16424: create thread 21896
+2021/02/20 15:59:17 [notice] 20060#16424: create thread 21896
+2021/02/20 15:59:17 [notice] 20060#16424: create thread 13052
+2021/02/20 15:59:17 [notice] 20060#16424: create thread 13052
+2021/02/20 15:59:21 [debug] 20060#20656: *1 [lua] log.lua:3: In log_by_lua_file...
+2021/02/20 15:59:21 [debug] 20060#20656: *1 [lua] log.lua:50: End log_by_lua_file...
+2021/02/20 16:00:08 [debug] 20060#20656: *1 [lua] log.lua:3: In log_by_lua_file...
+2021/02/20 16:00:08 [debug] 20060#20656: *1 [lua] log.lua:18: Content-Disposition:attachment;filename=pac.pac
+2021/02/20 16:00:08 [debug] 20060#20656: *1 [lua] log.lua:20: reverse_value:cap.cap=emanelif;tnemhcatta
+2021/02/20 16:00:08 [debug] 20060#20656: *1 [lua] log.lua:22: Found = index:8
+2021/02/20 16:00:08 [debug] 20060#20656: *1 [lua] log.lua:26: Encoded_filename:pac.pac
+2021/02/20 16:00:08 [debug] 20060#20656: *1 [lua] log.lua:28: Filename:pac.pac
+2021/02/20 16:00:08 [info] 20060#20656: *1 [lua] log.lua:33: Capture a download request:[http://192.168.50.121:8070/nginx/2/pac], post a request to create download log. while logging request, client: 192.168.50.121, server: localhost, request: "GET /nginx/2/pac HTTP/1.1", upstream: "http://[::1]:8082/nginx/2/pac", host: "192.168.50.121:8070"
+2021/02/20 16:00:08 [error] 20060#20656: *1 failed to run log_by_lua*: ...hat/Evn/openresty-1.13.6.2-win64/lualib/testcode/log.lua:46: attempt to index local 'list' (a nil value)
+stack traceback:
+	...hat/Evn/openresty-1.13.6.2-win64/lualib/testcode/log.lua:46: in function <...hat/Evn/openresty-1.13.6.2-win64/lualib/testcode/log.lua:1> while logging request, client: 192.168.50.121, server: localhost, request: "GET /nginx/2/pac HTTP/1.1", upstream: "http://[::1]:8082/nginx/2/pac", host: "192.168.50.121:8070"
+2021/02/20 16:00:08 [error] 20060#20656: *1 failed to run log_by_lua*: ...hat/Evn/openresty-1.13.6.2-win64/lualib/testcode/log.lua:46: attempt to index local 'list' (a nil value)
+stack traceback:
+	...hat/Evn/openresty-1.13.6.2-win64/lualib/testcode/log.lua:46: in function <...hat/Evn/openresty-1.13.6.2-win64/lualib/testcode/log.lua:1> while logging request, client: 192.168.50.121, server: localhost, request: "GET /nginx/2/pac HTTP/1.1", upstream: "http://[::1]:8082/nginx/2/pac", host: "192.168.50.121:8070"
+2021/02/20 16:00:21 [info] 20060#20656: *2 client timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while waiting for request, client: 192.168.50.121, server: 0.0.0.0:8070
+2021/02/20 16:02:33 [notice] 21748#19548: using the "select" event method
+2021/02/20 16:02:33 [notice] 21748#19548: using the "select" event method
+2021/02/20 16:02:33 [notice] 21748#19548: openresty/1.13.6.2
+2021/02/20 16:02:33 [notice] 21748#19548: openresty/1.13.6.2
+2021/02/20 16:02:33 [info] 21748#19548: OS: 300000 build:18363, "", suite:300, type:1
+2021/02/20 16:02:33 [notice] 21748#19548: start worker processes
+2021/02/20 16:02:33 [notice] 21748#19548: start worker processes
+2021/02/20 16:02:33 [notice] 21748#19548: start worker process 6928
+2021/02/20 16:02:33 [notice] 21748#19548: start worker process 6928
+2021/02/20 16:02:34 [notice] 6928#14140: openresty/1.13.6.2
+2021/02/20 16:02:34 [notice] 6928#14140: openresty/1.13.6.2
+2021/02/20 16:02:34 [info] 6928#14140: OS: 300000 build:18363, "", suite:300, type:1
+2021/02/20 16:02:34 [notice] 6928#14140: create thread 11976
+2021/02/20 16:02:34 [notice] 6928#14140: create thread 11976
+2021/02/20 16:02:34 [notice] 6928#14140: create thread 20096
+2021/02/20 16:02:34 [notice] 6928#14140: create thread 20096
+2021/02/20 16:02:34 [notice] 6928#14140: create thread 15240
+2021/02/20 16:02:34 [notice] 6928#14140: create thread 15240
+2021/02/20 16:02:38 [debug] 6928#11976: *1 [lua] log.lua:3: In log_by_lua_file...
+2021/02/20 16:02:38 [debug] 6928#11976: *1 [lua] log.lua:32: End log_by_lua_file...
+2021/02/20 16:02:42 [debug] 6928#11976: *1 [lua] log.lua:3: In log_by_lua_file...
+2021/02/20 16:02:42 [debug] 6928#11976: *1 [lua] log.lua:18: Content-Disposition:attachment;filename=pac.pac
+2021/02/20 16:02:42 [debug] 6928#11976: *1 [lua] log.lua:20: reverse_value:cap.cap=emanelif;tnemhcatta
+2021/02/20 16:02:42 [debug] 6928#11976: *1 [lua] log.lua:22: Found = index:8
+2021/02/20 16:02:42 [debug] 6928#11976: *1 [lua] log.lua:26: Encoded_filename:pac.pac
+2021/02/20 16:02:42 [debug] 6928#11976: *1 [lua] log.lua:28: Filename:pac.pac
+2021/02/20 16:02:42 [debug] 6928#11976: *1 [lua] log.lua:32: End log_by_lua_file...
+2021/02/20 16:03:38 [info] 6928#11976: *2 client timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while waiting for request, client: 192.168.50.121, server: 0.0.0.0:8070
+2021/02/20 16:10:49 [debug] 6928#11976: *6 [lua] log.lua:3: In log_by_lua_file...
+2021/02/20 16:10:49 [debug] 6928#11976: *6 [lua] log.lua:18: Content-Disposition:attachment;filename=pac.pac
+2021/02/20 16:10:49 [debug] 6928#11976: *6 [lua] log.lua:20: reverse_value:cap.cap=emanelif;tnemhcatta
+2021/02/20 16:10:49 [debug] 6928#11976: *6 [lua] log.lua:22: Found = index:8
+2021/02/20 16:10:49 [debug] 6928#11976: *6 [lua] log.lua:26: Encoded_filename:pac.pac
+2021/02/20 16:10:49 [debug] 6928#11976: *6 [lua] log.lua:28: Filename:pac.pac
+2021/02/20 16:10:49 [debug] 6928#11976: *6 [lua] log.lua:32: End log_by_lua_file...
+2021/02/20 16:11:49 [info] 6928#11976: *5 client timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while waiting for request, client: 192.168.50.121, server: 0.0.0.0:8070
+2021/02/20 16:36:52 [notice] 11092#15372: using the "select" event method
+2021/02/20 16:36:52 [notice] 11092#15372: using the "select" event method
+2021/02/20 16:36:52 [notice] 11092#15372: openresty/1.13.6.2
+2021/02/20 16:36:52 [notice] 11092#15372: openresty/1.13.6.2
+2021/02/20 16:36:52 [info] 11092#15372: OS: 300000 build:18363, "", suite:300, type:1
+2021/02/20 16:36:52 [notice] 11092#15372: start worker processes
+2021/02/20 16:36:52 [notice] 11092#15372: start worker processes
+2021/02/20 16:36:52 [notice] 11092#15372: start worker process 19508
+2021/02/20 16:36:52 [notice] 11092#15372: start worker process 19508
+2021/02/20 16:36:52 [notice] 19508#18220: openresty/1.13.6.2
+2021/02/20 16:36:52 [notice] 19508#18220: openresty/1.13.6.2
+2021/02/20 16:36:52 [info] 19508#18220: OS: 300000 build:18363, "", suite:300, type:1
+2021/02/20 16:36:52 [notice] 19508#18220: create thread 6208
+2021/02/20 16:36:52 [notice] 19508#18220: create thread 6208
+2021/02/20 16:36:52 [notice] 19508#18220: create thread 10132
+2021/02/20 16:36:52 [notice] 19508#18220: create thread 10132
+2021/02/20 16:36:52 [notice] 19508#18220: create thread 20524
+2021/02/20 16:36:52 [notice] 19508#18220: create thread 20524
+2021/02/20 16:37:07 [debug] 19508#6208: *1 [lua] log.lua:3: In log_by_lua_file...
+2021/02/20 16:37:07 [debug] 19508#6208: *1 [lua] log.lua:18: Content-Disposition:attachment;filename=pac.pac
+2021/02/20 16:37:07 [debug] 19508#6208: *1 [lua] log.lua:20: reverse_value:cap.cap=emanelif;tnemhcatta
+2021/02/20 16:37:07 [debug] 19508#6208: *1 [lua] log.lua:22: Found = index:8
+2021/02/20 16:37:07 [debug] 19508#6208: *1 [lua] log.lua:25: length27
+2021/02/20 16:37:07 [debug] 19508#6208: *1 [lua] log.lua:27: Encoded_filename:pac.pac
+2021/02/20 16:37:07 [debug] 19508#6208: *1 [lua] log.lua:29: Filename:pac.pac
+2021/02/20 16:37:07 [debug] 19508#6208: *1 [lua] log.lua:33: End log_by_lua_file...
+2021/02/20 16:38:06 [info] 19508#6208: *2 client timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while waiting for request, client: 192.168.50.121, server: 0.0.0.0:8070
+2021/02/20 17:03:40 [notice] 1148#21036: using the "select" event method
+2021/02/20 17:03:40 [notice] 1148#21036: using the "select" event method
+2021/02/20 17:03:40 [notice] 1148#21036: openresty/1.13.6.2
+2021/02/20 17:03:40 [notice] 1148#21036: openresty/1.13.6.2
+2021/02/20 17:03:40 [info] 1148#21036: OS: 300000 build:18363, "", suite:300, type:1
+2021/02/20 17:03:40 [notice] 1148#21036: start worker processes
+2021/02/20 17:03:40 [notice] 1148#21036: start worker processes
+2021/02/20 17:03:40 [notice] 1148#21036: start worker process 19596
+2021/02/20 17:03:40 [notice] 1148#21036: start worker process 19596
+2021/02/20 17:03:41 [notice] 19596#20152: openresty/1.13.6.2
+2021/02/20 17:03:41 [notice] 19596#20152: openresty/1.13.6.2
+2021/02/20 17:03:41 [info] 19596#20152: OS: 300000 build:18363, "", suite:300, type:1
+2021/02/20 17:03:41 [notice] 19596#20152: create thread 17464
+2021/02/20 17:03:41 [notice] 19596#20152: create thread 17464
+2021/02/20 17:03:41 [notice] 19596#20152: create thread 5092
+2021/02/20 17:03:41 [notice] 19596#20152: create thread 5092
+2021/02/20 17:03:41 [notice] 19596#20152: create thread 8276
+2021/02/20 17:03:41 [notice] 19596#20152: create thread 8276
+2021/02/20 17:04:17 [debug] 19596#17464: *1 [lua] log.lua:3: In log_by_lua_file...
+2021/02/20 17:04:17 [debug] 19596#17464: *1 [lua] log.lua:18: Content-Disposition:attachment;filename=pac.pac
+2021/02/20 17:04:17 [debug] 19596#17464: *1 [lua] log.lua:20: reverse_value:cap.cap=emanelif;tnemhcatta
+2021/02/20 17:04:17 [debug] 19596#17464: *1 [lua] log.lua:22: Found = index:8
+2021/02/20 17:04:17 [debug] 19596#17464: *1 [lua] log.lua:25: length27
+2021/02/20 17:04:17 [debug] 19596#17464: *1 [lua] log.lua:29: nil
+2021/02/20 17:04:17 [debug] 19596#17464: *1 [lua] log.lua:31: Encoded_filename:pac.pac
+2021/02/20 17:04:17 [debug] 19596#17464: *1 [lua] log.lua:33: Filename:pac.pac
+2021/02/20 17:04:17 [debug] 19596#17464: *1 [lua] log.lua:37: End log_by_lua_file...
+2021/02/20 17:05:17 [info] 19596#17464: *2 client timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while waiting for request, client: 192.168.50.121, server: 0.0.0.0:8070
+2021/02/20 17:10:59 [notice] 20808#21108: using the "select" event method
+2021/02/20 17:10:59 [notice] 20808#21108: using the "select" event method
+2021/02/20 17:10:59 [notice] 20808#21108: openresty/1.13.6.2
+2021/02/20 17:10:59 [notice] 20808#21108: openresty/1.13.6.2
+2021/02/20 17:10:59 [info] 20808#21108: OS: 300000 build:18363, "", suite:300, type:1
+2021/02/20 17:10:59 [notice] 20808#21108: start worker processes
+2021/02/20 17:10:59 [notice] 20808#21108: start worker processes
+2021/02/20 17:10:59 [notice] 20808#21108: start worker process 18368
+2021/02/20 17:10:59 [notice] 20808#21108: start worker process 18368
+2021/02/20 17:10:59 [notice] 18368#1064: openresty/1.13.6.2
+2021/02/20 17:10:59 [notice] 18368#1064: openresty/1.13.6.2
+2021/02/20 17:10:59 [info] 18368#1064: OS: 300000 build:18363, "", suite:300, type:1
+2021/02/20 17:10:59 [notice] 18368#1064: create thread 19936
+2021/02/20 17:10:59 [notice] 18368#1064: create thread 19936
+2021/02/20 17:10:59 [notice] 18368#1064: create thread 20632
+2021/02/20 17:10:59 [notice] 18368#1064: create thread 20632
+2021/02/20 17:10:59 [notice] 18368#1064: create thread 12012
+2021/02/20 17:10:59 [notice] 18368#1064: create thread 12012
+2021/02/20 17:11:07 [debug] 18368#19936: *2 [lua] log.lua:3: In log_by_lua_file...
+2021/02/20 17:11:07 [debug] 18368#19936: *2 [lua] log.lua:18: Content-Disposition:attachment;filename=pac.pac
+2021/02/20 17:11:07 [debug] 18368#19936: *2 [lua] log.lua:20: reverse_value:cap.cap=emanelif;tnemhcatta
+2021/02/20 17:11:07 [debug] 18368#19936: *2 [lua] log.lua:22: Found = index:8
+2021/02/20 17:11:07 [debug] 18368#19936: *2 [lua] log.lua:25: length27
+2021/02/20 17:11:07 [debug] 18368#19936: *2 [lua] log.lua:35: Encoded_filename:pac.pac
+2021/02/20 17:11:07 [debug] 18368#19936: *2 [lua] log.lua:38: Filename:pac.pac
+2021/02/20 17:11:07 [debug] 18368#19936: *2 [lua] log.lua:42: End log_by_lua_file...
+2021/02/20 17:12:07 [info] 18368#19936: *1 client timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while waiting for request, client: 192.168.50.121, server: 0.0.0.0:8070
+2021/02/20 17:12:45 [debug] 18368#19936: *4 [lua] log.lua:3: In log_by_lua_file...
+2021/02/20 17:12:45 [debug] 18368#19936: *4 [lua] log.lua:18: Content-Disposition:attachment;filename="pac.pac"
+2021/02/20 17:12:45 [debug] 18368#19936: *4 [lua] log.lua:20: reverse_value:"cap.cap"=emanelif;tnemhcatta
+2021/02/20 17:12:45 [debug] 18368#19936: *4 [lua] log.lua:22: Found = index:10
+2021/02/20 17:12:45 [debug] 18368#19936: *4 [lua] log.lua:25: length29
+2021/02/20 17:12:45 [debug] 18368#19936: *4 [lua] log.lua:35: Encoded_filename:
+2021/02/20 17:12:45 [debug] 18368#19936: *4 [lua] log.lua:38: Filename:
+2021/02/20 17:12:45 [debug] 18368#19936: *4 [lua] log.lua:42: End log_by_lua_file...
+2021/02/20 17:13:44 [info] 18368#19936: *5 client timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while waiting for request, client: 192.168.50.121, server: 0.0.0.0:8070
+2021/02/20 17:14:25 [notice] 22304#13712: using the "select" event method
+2021/02/20 17:14:25 [notice] 22304#13712: using the "select" event method
+2021/02/20 17:14:25 [notice] 22304#13712: openresty/1.13.6.2
+2021/02/20 17:14:25 [notice] 22304#13712: openresty/1.13.6.2
+2021/02/20 17:14:25 [info] 22304#13712: OS: 300000 build:18363, "", suite:300, type:1
+2021/02/20 17:14:25 [notice] 22304#13712: start worker processes
+2021/02/20 17:14:25 [notice] 22304#13712: start worker processes
+2021/02/20 17:14:25 [notice] 22304#13712: start worker process 11032
+2021/02/20 17:14:25 [notice] 22304#13712: start worker process 11032
+2021/02/20 17:14:25 [notice] 11032#5496: openresty/1.13.6.2
+2021/02/20 17:14:25 [notice] 11032#5496: openresty/1.13.6.2
+2021/02/20 17:14:25 [info] 11032#5496: OS: 300000 build:18363, "", suite:300, type:1
+2021/02/20 17:14:25 [notice] 11032#5496: create thread 20524
+2021/02/20 17:14:25 [notice] 11032#5496: create thread 20524
+2021/02/20 17:14:25 [notice] 11032#5496: create thread 20272
+2021/02/20 17:14:25 [notice] 11032#5496: create thread 20272
+2021/02/20 17:14:25 [notice] 11032#5496: create thread 16200
+2021/02/20 17:14:25 [notice] 11032#5496: create thread 16200
+2021/02/20 17:14:33 [debug] 11032#20524: *2 [lua] log.lua:3: In log_by_lua_file...
+2021/02/20 17:14:33 [debug] 11032#20524: *2 [lua] log.lua:18: Content-Disposition:attachment;filename="pac.pac"
+2021/02/20 17:14:33 [debug] 11032#20524: *2 [lua] log.lua:20: reverse_value:"cap.cap"=emanelif;tnemhcatta
+2021/02/20 17:14:33 [debug] 11032#20524: *2 [lua] log.lua:22: Found = index:10
+2021/02/20 17:14:33 [debug] 11032#20524: *2 [lua] log.lua:25: length29
+2021/02/20 17:14:33 [debug] 11032#20524: *2 [lua] log.lua:32: 1111"pac.pac"
+2021/02/20 17:14:33 [debug] 11032#20524: *2 [lua] log.lua:34: 11111
+2021/02/20 17:14:33 [debug] 11032#20524: *2 [lua] log.lua:32: 1111pac.pac"
+2021/02/20 17:14:33 [debug] 11032#20524: *2 [lua] log.lua:34: 11118
+2021/02/20 17:14:33 [debug] 11032#20524: *2 [lua] log.lua:32: 1111
+2021/02/20 17:14:33 [error] 11032#20524: *2 failed to run log_by_lua*: ...hat/Evn/openresty-1.13.6.2-win64/lualib/testcode/log.lua:34: attempt to concatenate local 'start' (a nil value)
+stack traceback:
+	...hat/Evn/openresty-1.13.6.2-win64/lualib/testcode/log.lua:34: in function <...hat/Evn/openresty-1.13.6.2-win64/lualib/testcode/log.lua:1> while logging request, client: 192.168.50.121, server: localhost, request: "GET /nginx/2/pac HTTP/1.1", upstream: "http://127.0.0.1:8082/nginx/2/pac", host: "192.168.50.121:8070"
+2021/02/20 17:14:33 [error] 11032#20524: *2 failed to run log_by_lua*: ...hat/Evn/openresty-1.13.6.2-win64/lualib/testcode/log.lua:34: attempt to concatenate local 'start' (a nil value)
+stack traceback:
+	...hat/Evn/openresty-1.13.6.2-win64/lualib/testcode/log.lua:34: in function <...hat/Evn/openresty-1.13.6.2-win64/lualib/testcode/log.lua:1> while logging request, client: 192.168.50.121, server: localhost, request: "GET /nginx/2/pac HTTP/1.1", upstream: "http://127.0.0.1:8082/nginx/2/pac", host: "192.168.50.121:8070"
+2021/02/20 17:15:33 [info] 11032#20524: *1 client timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while waiting for request, client: 192.168.50.121, server: 0.0.0.0:8070
+2021/02/20 17:17:23 [notice] 21348#6316: using the "select" event method
+2021/02/20 17:17:23 [notice] 21348#6316: using the "select" event method
+2021/02/20 17:17:23 [notice] 21348#6316: openresty/1.13.6.2
+2021/02/20 17:17:23 [notice] 21348#6316: openresty/1.13.6.2
+2021/02/20 17:17:23 [info] 21348#6316: OS: 300000 build:18363, "", suite:300, type:1
+2021/02/20 17:17:23 [notice] 21348#6316: start worker processes
+2021/02/20 17:17:23 [notice] 21348#6316: start worker processes
+2021/02/20 17:17:23 [notice] 21348#6316: start worker process 11124
+2021/02/20 17:17:23 [notice] 21348#6316: start worker process 11124
+2021/02/20 17:17:23 [notice] 11124#20232: openresty/1.13.6.2
+2021/02/20 17:17:23 [notice] 11124#20232: openresty/1.13.6.2
+2021/02/20 17:17:23 [info] 11124#20232: OS: 300000 build:18363, "", suite:300, type:1
+2021/02/20 17:17:23 [notice] 11124#20232: create thread 20364
+2021/02/20 17:17:23 [notice] 11124#20232: create thread 20364
+2021/02/20 17:17:23 [notice] 11124#20232: create thread 15708
+2021/02/20 17:17:23 [notice] 11124#20232: create thread 15708
+2021/02/20 17:17:23 [notice] 11124#20232: create thread 20960
+2021/02/20 17:17:23 [notice] 11124#20232: create thread 20960
+2021/02/20 17:17:33 [debug] 11032#20524: *5 [lua] log.lua:3: In log_by_lua_file...
+2021/02/20 17:17:33 [debug] 11032#20524: *5 [lua] log.lua:18: Content-Disposition:attachment;filename="pac.pac"
+2021/02/20 17:17:33 [debug] 11032#20524: *5 [lua] log.lua:20: reverse_value:"cap.cap"=emanelif;tnemhcatta
+2021/02/20 17:17:33 [debug] 11032#20524: *5 [lua] log.lua:22: Found = index:10
+2021/02/20 17:17:33 [debug] 11032#20524: *5 [lua] log.lua:25: length29
+2021/02/20 17:17:33 [debug] 11032#20524: *5 [lua] log.lua:32: 1111"pac.pac"
+2021/02/20 17:17:33 [debug] 11032#20524: *5 [lua] log.lua:34: 11111
+2021/02/20 17:17:33 [debug] 11032#20524: *5 [lua] log.lua:32: 1111pac.pac"
+2021/02/20 17:17:33 [debug] 11032#20524: *5 [lua] log.lua:34: 11118
+2021/02/20 17:17:33 [debug] 11032#20524: *5 [lua] log.lua:32: 1111
+2021/02/20 17:17:33 [error] 11032#20524: *5 failed to run log_by_lua*: ...hat/Evn/openresty-1.13.6.2-win64/lualib/testcode/log.lua:34: attempt to concatenate local 'start' (a nil value)
+stack traceback:
+	...hat/Evn/openresty-1.13.6.2-win64/lualib/testcode/log.lua:34: in function <...hat/Evn/openresty-1.13.6.2-win64/lualib/testcode/log.lua:1> while logging request, client: 192.168.50.121, server: localhost, request: "GET /nginx/2/pac HTTP/1.1", upstream: "http://[::1]:8082/nginx/2/pac", host: "192.168.50.121:8070"
+2021/02/20 17:17:33 [error] 11032#20524: *5 failed to run log_by_lua*: ...hat/Evn/openresty-1.13.6.2-win64/lualib/testcode/log.lua:34: attempt to concatenate local 'start' (a nil value)
+stack traceback:
+	...hat/Evn/openresty-1.13.6.2-win64/lualib/testcode/log.lua:34: in function <...hat/Evn/openresty-1.13.6.2-win64/lualib/testcode/log.lua:1> while logging request, client: 192.168.50.121, server: localhost, request: "GET /nginx/2/pac HTTP/1.1", upstream: "http://[::1]:8082/nginx/2/pac", host: "192.168.50.121:8070"
+
+
+2021/02/20 17:18:01 [notice] 19904#20500: using the "select" event method
+2021/02/20 17:18:01 [notice] 19904#20500: using the "select" event method
+2021/02/20 17:18:01 [notice] 19904#20500: openresty/1.13.6.2
+2021/02/20 17:18:01 [notice] 19904#20500: openresty/1.13.6.2
+2021/02/20 17:18:01 [info] 19904#20500: OS: 300000 build:18363, "", suite:300, type:1
+2021/02/20 17:18:01 [notice] 19904#20500: start worker processes
+2021/02/20 17:18:01 [notice] 19904#20500: start worker processes
+2021/02/20 17:18:01 [notice] 19904#20500: start worker process 9452
+2021/02/20 17:18:01 [notice] 19904#20500: start worker process 9452
+2021/02/20 17:18:01 [notice] 9452#20512: openresty/1.13.6.2
+2021/02/20 17:18:01 [notice] 9452#20512: openresty/1.13.6.2
+2021/02/20 17:18:01 [info] 9452#20512: OS: 300000 build:18363, "", suite:300, type:1
+2021/02/20 17:18:01 [notice] 9452#20512: create thread 5424
+2021/02/20 17:18:01 [notice] 9452#20512: create thread 5424
+2021/02/20 17:18:01 [notice] 9452#20512: create thread 22408
+2021/02/20 17:18:01 [notice] 9452#20512: create thread 22408
+2021/02/20 17:18:01 [notice] 9452#20512: create thread 12824
+2021/02/20 17:18:01 [notice] 9452#20512: create thread 12824
+2021/02/20 17:18:07 [debug] 9452#5424: *2 [lua] log.lua:3: In log_by_lua_file...
+2021/02/20 17:18:07 [debug] 9452#5424: *2 [lua] log.lua:18: Content-Disposition:attachment;filename="pac.pac"
+2021/02/20 17:18:07 [debug] 9452#5424: *2 [lua] log.lua:20: reverse_value:"cap.cap"=emanelif;tnemhcatta
+2021/02/20 17:18:07 [debug] 9452#5424: *2 [lua] log.lua:22: Found = index:10
+2021/02/20 17:18:07 [debug] 9452#5424: *2 [lua] log.lua:25: length29
+2021/02/20 17:18:07 [debug] 9452#5424: *2 [lua] log.lua:31: Encoded_filename:pac.pac
+2021/02/20 17:18:07 [debug] 9452#5424: *2 [lua] log.lua:34: Filename:pac.pac
+2021/02/20 17:18:07 [debug] 9452#5424: *2 [lua] log.lua:38: End log_by_lua_file...
