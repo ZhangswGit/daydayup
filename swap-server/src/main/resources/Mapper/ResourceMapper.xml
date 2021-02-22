@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.swapServer.mapper.ResourceMapper">
+
+    <select id="findAllResourceByRoleId" resultMap="com.swapServer.mapper.CommonMapper.ResourceResultMap">
+        select r.* from resource r
+        left join
+        role_resource rr
+        on rr.resource_id = r.id
+        and rr.role_id = #{roleId} and r.is_delete = 0
+    </select>
+    
+</mapper>
