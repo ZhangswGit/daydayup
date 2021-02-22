@@ -795,6 +795,7 @@ stack traceback:
 2021/02/22 10:19:07 [notice] 17400#20244: create thread 21436
 2021/02/22 10:19:07 [notice] 17400#20244: create thread 19532
 2021/02/22 10:19:07 [notice] 17400#20244: create thread 19532
+<<<<<<< HEAD
 2021/02/22 10:20:21 [info] 17400#14016: *1 client timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while waiting for request, client: 192.168.50.121, server: 0.0.0.0:8070
 2021/02/22 10:20:21 [info] 17400#14016: *2 client timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while waiting for request, client: 192.168.50.121, server: 0.0.0.0:8070
 2021/02/22 10:23:40 [debug] 17400#14016: *3 [lua] log.lua:3: In log_by_lua_file...
@@ -819,3 +820,5 @@ stack traceback:
 2021/02/22 10:31:23 [debug] 17400#14016: *11 [lua] log.lua:38: End log_by_lua_file...
 2021/02/22 10:33:19 [debug] 17400#14016: *12 [lua] log.lua:3: In log_by_lua_file...
 2021/02/22 10:33:19 [debug] 17400#14016: *12 [lua] log.lua:38: End log_by_lua_file...
+=======
+>>>>>>> 08aa15a15d92a9b2f6b30da0d0ed6ec4a1e77065
