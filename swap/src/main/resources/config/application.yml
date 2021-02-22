@@ -1,0 +1,27 @@
+server:
+  port: 8082
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.50.166:3306/test?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: 123+Jvmp=456
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: MYSQL
+    show-sql: false
+
+mybatis-plus:
+  check-config-location: true
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: AUTO
+  mapper-locations: classpath*:Mapper/*Mapper.xml
+
+logging:
+  level:
+    ROOT: info
+    org.springframework.security: debug
+    com.connecttoweChat.mapper: debug
