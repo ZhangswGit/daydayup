@@ -13,13 +13,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 @Aspect
 @Component
 @Slf4j
 public class WebLogAspect {
-    @Autowired
+    @Resource(name = "LocalAnalysisEngine")
     private AnalysisEngine analysisEngine;
 
     @Pointcut("execution(* com.swapServer.controller..*.*(..))")

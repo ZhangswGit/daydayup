@@ -1,7 +1,9 @@
 package com.swapServer.controller;
 
-import com.swapServer.mapper.AccessLogMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.swapServer.analysis.CompressFileAnalysisEngine;
+import com.swapServer.analysis.file.CompressFile;
+import com.swapServer.mapper.AccessLogMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,10 @@ import java.util.Map;
 @RestController
 @RequestMapping("/nginx")
 public class NginxController {
+
+    @Autowired
+    private CompressFileAnalysisEngine analysisEngine;
+
 
 //    private static final String PAC_TEMPLATE =
 //            "var proxyDomains = [\"jira.tistarlocal.com\",\"192.168.50.83\",\"192.168.50.82\",\"www.baidu.com\"];<br/>" + // ['outlook.office365.com']
@@ -120,6 +126,26 @@ public class NginxController {
         } catch (Exception e) {
             log.info(e.getMessage());
         }
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/compress/{fileId}/{remote}")
+    public ResponseEntity<Void> compressFile(@PathVariable("fileId") int fileId, @PathVariable("remote") String remote){
+        String parentPath = "D:" + File.separator + "chrom" + File.separator + "zipFile" + File.separator;
+        CompressFile compressFile = null;
+        switch (fileId) {
+            case 1:
+                compressFile = new CompressFile(parentPath + "openresty-1.13.6.2-win64.zip");
+                break;
+            case 2:
+                compressFile = new CompressFile(parentPath + "zipfile1.zip");
+                break;
+            case 3:
+                compressFile = new CompressFile(parentPath + "UltraEdit-32.zip");
+                break;
+        }
+        compressFile.setRemote(remote);
+        analysisEngine.execute(compressFile);
         return ResponseEntity.ok().build();
     }
 }

@@ -1,58 +1,32 @@
 package com.swapServer.analysis;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.Map;
+import javax.annotation.PreDestroy;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-@Component
 @Slf4j
-public class AnalysisEngine {
+public abstract class AnalysisEngine {
 
-    @Autowired
-    private ApplicationContext applicationContext;
-
-    private ExecutorService executorService;
-
-    private Map<String, Analyzer> analyzers;
-
-    public void execute(Analyzed analyzed){
-        analyzers.forEach((k,v) -> {
-            if(v.support(analyzed)){
-                Task task = new Task(v, analyzed);
-                executorService.submit(task);
-            }
-        });
-    }
+    protected ExecutorService executorService;
 
     @PostConstruct
     public void run(){
         executorService = new ThreadPoolExecutor(4, 4 * 2, 60L, TimeUnit.SECONDS,
                 new LinkedBlockingQueue<>(10240), new ThreadPoolExecutor.DiscardOldestPolicy());
-        analyzers = applicationContext.getBeansOfType(Analyzer.class);
-        log.info("Analysis engine started");
+
+        log.info("CompressFileAnalysisEngine started");
     }
 
-    class Task implements Runnable{
-        Analyzer analyzer;
-        Analyzed analyzed;
-
-        public Task(Analyzer analyzer, Analyzed analyzed){
-            this.analyzed = analyzed;
-            this.analyzer = analyzer;
-        }
-
-        @Override
-        public void run() {
-            analyzer.analyze(analyzed);
-        }
+    @PreDestroy
+    public void shutdown() {
+        executorService.shutdown();
+        log.info("Analysis engine shutdown");
     }
 
+    public abstract void execute(Analyzed analyzed);
 }

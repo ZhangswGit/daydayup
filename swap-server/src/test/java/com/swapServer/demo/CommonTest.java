@@ -1,7 +1,11 @@
 package com.swapServer.demo;
 
-import com.swapServer.constants.AuthConstant;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.swapServer.analysis.Analyzed;
+import com.swapServer.analysis.file.CompressFile;
+import com.swapServer.analysis.file.CompressFileAnalyzerImpl;
+import com.swapServer.analysis.file.DetectionResult;
+import com.swapServer.constants.AuthConstant;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +18,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.util.CollectionUtils;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
@@ -24,6 +29,7 @@ import java.security.Key;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -159,7 +165,8 @@ public class CommonTest {
         }
     }
 
-    public static void main(String[] args) {
+    @Test
+    public void builder(String[] args) {
         String a = null;
         switch (a){
 
@@ -248,5 +255,15 @@ public class CommonTest {
         }
 
         log.info("完成！");
+    }
+
+    @Test
+    public void analyse(){
+        Analyzed compressFile = new CompressFile(FILE_BASH_PATH + "zipFile.zip");
+        CompressFileAnalyzerImpl compressFileAnalyzer = new CompressFileAnalyzerImpl();
+        compressFileAnalyzer.analyze(compressFile);
+    }
+
+    public static void main(String[] args) {
     }
 }
