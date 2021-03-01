@@ -1,7 +1,7 @@
 package com.swapServer.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.swapServer.Utils.HeaderUtils;
+import com.swapServer.utils.HeaderUtils;
 import com.swapServer.bean.Organization;
 import com.swapServer.bean.Role;
 import com.swapServer.bean.User;

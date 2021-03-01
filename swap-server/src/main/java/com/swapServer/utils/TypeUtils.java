@@ -1,4 +1,4 @@
-package com.swapServer.Utils;
+package com.swapServer.utils;
 
 /**
  *

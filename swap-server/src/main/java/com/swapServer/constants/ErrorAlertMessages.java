@@ -8,7 +8,8 @@ public enum ErrorAlertMessages {
     OrganizationNotExits("组织不存在！"),
     EmailExits("邮箱已占用"),
     PhoneExits("手机号已占用"),
-    UserOrPassWordError("账号或密码错误！请重试");
+    UserOrPassWordError("账号或密码错误！请重试"),
+    UserOffline("用户下线");
 
     private String alias;
     ErrorAlertMessages(String alias){

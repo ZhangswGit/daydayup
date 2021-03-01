@@ -7,22 +7,22 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
-import com.swapServer.config.DefaultProperties;
 import com.google.gson.Gson;
+import com.swapServer.config.AliyunProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.util.Map;
 
 @Slf4j
 @Service
 public class ALiYunDomainRecordService {
 
-    @Autowired
-    private DefaultProperties defaultProperties;
+    @Resource(name = "AliyunProperties")
+    private AliyunProperties defaultProperties;
 
     private IAcsClient client;
 

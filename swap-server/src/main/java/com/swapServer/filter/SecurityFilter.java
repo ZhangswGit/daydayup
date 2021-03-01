@@ -1,6 +1,6 @@
 package com.swapServer.filter;
 
-import com.swapServer.Utils.SecurityUtils;
+import com.swapServer.utils.SecurityUtils;
 import com.swapServer.config.jwtToken.TokenProvide;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;

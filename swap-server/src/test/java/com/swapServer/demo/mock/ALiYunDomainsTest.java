@@ -7,8 +7,8 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
-import com.swapServer.config.DefaultProperties;
 import com.google.gson.Gson;
+import com.swapServer.config.AliyunProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ import java.util.Map;
 public class ALiYunDomainsTest extends AbstractBeanTest {
 
     @Autowired
-    private DefaultProperties defaultProperties;
+    private AliyunProperties defaultProperties;
 
     private static IClientProfile profile;
     private static IAcsClient client;

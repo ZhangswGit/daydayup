@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 /**
  * @Data : 2020/12/25
@@ -13,10 +14,10 @@ import org.springframework.context.annotation.PropertySource;
  */
 
 @Data
-@Configuration
+@Configuration("AliyunProperties")
 @PropertySource("classpath:config/aliyun.properties")
 @ConfigurationProperties(prefix = "aliyun", ignoreUnknownFields = false)
-public class DefaultProperties {
+public class AliyunProperties {
 
     private String regionId;
     private String accessKeyId;

@@ -1,4 +1,4 @@
-package com.swapServer.Utils;
+package com.swapServer.utils;
 
 import com.swapServer.config.jwtToken.TokenProvide;
 import org.apache.commons.lang3.ObjectUtils;

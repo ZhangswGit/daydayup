@@ -1,7 +1,7 @@
 package com.swapServer.config.mybaits;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.swapServer.Utils.SecurityUtils;
+import com.swapServer.utils.SecurityUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;

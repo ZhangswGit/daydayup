@@ -43,6 +43,8 @@ public class CompressFileAnalyzerImpl implements Analyzer {
 
     public void zipFile(Analyzed analyzed, int count) {
         CompressFile file = (CompressFile) analyzed;
+        log.info("开始解析{}文件", file.getName());
+
         try (ZipFile zipFile = new ZipFile(file)) {
             Enumeration<ZipArchiveEntry> zipFileEntries = zipFile.getEntries();
             while (zipFileEntries.hasMoreElements()) {

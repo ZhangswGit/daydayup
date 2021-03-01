@@ -1,4 +1,4 @@
-package com.swapServer.Utils;
+package com.swapServer.utils;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.http.HttpHeaders;

@@ -1,20 +1,27 @@
 package com.swapServer;
 
-import com.swapServer.config.DefaultProperties;
+import com.swapServer.config.AliyunProperties;
+import com.swapServer.config.NettyProperties;
+import com.swapServer.netty.NettyServer;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 
+@Slf4j
 @SpringBootApplication
 @ComponentScan("com.swapServer")
-@EnableConfigurationProperties({LiquibaseProperties.class, DefaultProperties.class})
 @MapperScan("com.swapServer.mapper")
-@Slf4j
-public class ConnecttoweChatApplication {
+@EnableConfigurationProperties({LiquibaseProperties.class, AliyunProperties.class, NettyProperties.class})
+public class ConnecttoweChatApplication implements CommandLineRunner {
+
+	@Autowired
+	NettyServer nettyServer;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ConnecttoweChatApplication.class, args);
@@ -22,4 +29,8 @@ public class ConnecttoweChatApplication {
 		log.info("-------------------------");
 	}
 
+	@Override
+	public void run(String... args) throws Exception {
+		nettyServer.start();
+	}
 }

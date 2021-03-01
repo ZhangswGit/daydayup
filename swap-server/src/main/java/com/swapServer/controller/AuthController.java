@@ -1,6 +1,6 @@
 package com.swapServer.controller;
 
-import com.swapServer.Utils.SecurityUtils;
+import com.swapServer.utils.SecurityUtils;
 import com.swapServer.bean.Role;
 import com.swapServer.constants.AuthConstant;
 import com.swapServer.mapper.ResourceMapper;

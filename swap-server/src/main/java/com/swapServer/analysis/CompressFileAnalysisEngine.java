@@ -1,15 +1,10 @@
 package com.swapServer.analysis;
 
 import com.swapServer.analysis.file.CompressFile;
-import com.swapServer.analysis.file.CompressFileAnalyzerImpl;
-import com.swapServer.analysis.file.DetectionResult;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
+import javax.annotation.Resource;
 
 /**
  * @Data :  2021/2/25 14:55
@@ -17,12 +12,12 @@ import java.util.concurrent.Future;
  * @Descripe : TODO
  * @Version : 0.1
  */
-@Service("CompressFileAnalysisEngine")
 @Slf4j
+@Service("CompressFileAnalysisEngine")
 public class CompressFileAnalysisEngine extends AnalysisEngine {
 
-    @Autowired
-    CompressFileAnalyzerImpl compressFileAnalyzer;
+    @Resource(name = "CompressFileAnalyzerImpl")
+    private Analyzer analyzer;
 
     @Override
     public void execute(Analyzed analyzed) {
@@ -34,25 +29,23 @@ public class CompressFileAnalysisEngine extends AnalysisEngine {
             return;
         }
 
-        Task task = new Task(compressFileAnalyzer, compressFile);
+        Task task = new Task(analyzer, compressFile);
         executorService.submit(task);
     }
 
     class Task implements Runnable {
 
         private Analyzed analyzed;
-        private CompressFileAnalyzerImpl compressFileAnalyzer;
+        private Analyzer analyzer;
 
-        public Task(CompressFileAnalyzerImpl compressFileAnalyzer, Analyzed analyzed){
+        public Task(Analyzer analyzer, Analyzed analyzed){
             this.analyzed = analyzed;
-            this.compressFileAnalyzer = compressFileAnalyzer;
+            this.analyzer = analyzer;
         }
 
         @Override
         public void run() {
-            CompressFile compressFile = (CompressFile) analyzed;
-            log.info("开始解析{}文件", compressFile.getName());
-            compressFileAnalyzer.analyze(analyzed);
+            analyzer.analyze(analyzed);
         }
     }
 }
