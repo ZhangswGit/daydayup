@@ -1,12 +1,11 @@
-package com.swapCommon.coding;
+package com.swapCommon;
 
-import io.netty.channel.ChannelId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.nio.channels.Channel;
+import java.time.Instant;
 
 /**
  * @Data :  2021/2/26 10:57
@@ -20,12 +19,11 @@ import java.nio.channels.Channel;
 @AllArgsConstructor
 public class Message {
 
-    private int messageHead;
+    private byte messageHead;
 
     private Long localId;
 
     private Long goalId;
 
     private Object body;
-
 }

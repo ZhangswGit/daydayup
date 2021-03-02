@@ -1,10 +1,8 @@
 package com.swapServer.netty.handler;
 
-import com.swapCommon.coding.Message;
-import com.swapCommon.coding.MessageHead;
+import com.swapCommon.Message;
+import com.swapCommon.header.MessageHead;
 import com.swapServer.constants.ErrorAlertMessages;
-import com.swapServer.error.BadRequestException;
-import com.swapServer.error.UserOfflineException;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelId;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -12,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetSocketAddress;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -23,18 +23,20 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class MessageHandler extends ChannelInboundHandlerAdapter {
 
+    private static final Set<ChannelHandlerContext> clientCount = new HashSet<>();
+
     private static final ConcurrentHashMap<ChannelId, ChannelHandlerContext> channelHandlerContextMap = new ConcurrentHashMap<ChannelId, ChannelHandlerContext>();
 
     private static final ConcurrentHashMap<Long, ChannelId> userChannelIdMap = new ConcurrentHashMap<Long, ChannelId>();
 
     @Override
     public void channelRead(ChannelHandlerContext channelHandlerContext, Object obj) {
-        ChannelId channelId = channelHandlerContext.channel().id();
         if (!(obj instanceof Message)) {
             log.error("Message:{} format error", obj);
-            channelHandlerContext.close();
-            channelHandlerContextMap.remove(channelId);
+            offline(null, channelHandlerContext);
         }
+
+        ChannelId channelId = channelHandlerContext.channel().id();
         log.info("channelId: {}, data: {}", channelId, obj);
         Message message = (Message) obj;
 
@@ -51,18 +53,17 @@ public class MessageHandler extends ChannelInboundHandlerAdapter {
     /**
      * 客户端断开连接触发
      *
-     * @param ctx
+     * @param channelHandlerContext
      */
     @Override
-    public void channelInactive(ChannelHandlerContext ctx) {
+    public void channelInactive(ChannelHandlerContext channelHandlerContext) {
 
-        InetSocketAddress inetSocketAddress = (InetSocketAddress) ctx.channel().remoteAddress();
+        InetSocketAddress inetSocketAddress = (InetSocketAddress) channelHandlerContext.channel().remoteAddress();
         String clientIp = inetSocketAddress.getAddress().getHostAddress();
         int clientPort = inetSocketAddress.getPort();
 
-        ChannelId channelId = ctx.channel().id();
-        channelHandlerContextMap.remove(channelId);
-        log.info("{} --> 客户端[{}:{}]下线 --> ChannelId:[{}]", Instant.now(), clientIp, clientPort, channelId);
+        offline(null, channelHandlerContext);
+        log.info("客户端[{}:{}]下线", clientIp, clientPort);
     }
 
     /**
@@ -73,54 +74,86 @@ public class MessageHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelActive(ChannelHandlerContext channelHandlerContext) {
-
         InetSocketAddress inetSocketAddress = (InetSocketAddress) channelHandlerContext.channel().remoteAddress();
         String clientIp = inetSocketAddress.getAddress().getHostAddress();
         int clientPort = inetSocketAddress.getPort();
         channelHandlerContext.channel().read();//
-
-        //获取连接通道唯一标识
-        ChannelId channelId = channelHandlerContext.channel().id();
-        channelHandlerContextMap.put(channelId, channelHandlerContext);
-        log.info("{} --> 客户端[{}:{}]上线 --> ChannelId:[{}]", Instant.now(), clientIp, clientPort, channelId);
+        log.info("{} --> 客户端[{}:{}]上线", Instant.now(), clientIp, clientPort);
     }
 
-    void authenticateHandle(ChannelHandlerContext ch, Message message) {
-        ChannelId channelId = userChannelIdMap.get(message.getLocalId());
-        if (channelId != null) {
-            ChannelHandlerContext channelHandlerContext = channelHandlerContextMap.get(channelId);
-            if (channelHandlerContext != null) {
-                channelHandlerContext.writeAndFlush(Message.builder().messageHead(MessageHead.OFFLINE).build());
-                channelHandlerContext.close();
-                channelHandlerContextMap.remove(channelId);
-            }
+    void authenticateHandle(ChannelHandlerContext channelHandlerContext, Message message) {
+        ChannelId channelIdOld = userChannelIdMap.get(message.getLocalId());
+        if (channelIdOld != null) {
+            //先下线已经登陆的用户
+           offline(message, channelHandlerContextMap.get(channelIdOld));
         }
-
-        ChannelId id = ch.channel().id();
-        channelHandlerContextMap.put(id, ch);
-        userChannelIdMap.put(message.getLocalId(), id);
-        ch.writeAndFlush(Message.builder().messageHead(MessageHead.AUTH_SUCCESS).build());
-        log.error("localUser:{} auth success", message.getLocalId());
+        //重新上线
+        online(message, channelHandlerContext);
     }
 
-    public void mutualHandle(ChannelHandlerContext ch, Message message) {
+    public void mutualHandle(ChannelHandlerContext channelHandlerContext, Message message) {
+        if (!clientCount.contains(channelHandlerContext)) {
+            log.error("local user:{} not certified", message.getLocalId());
+            channelHandlerContext.writeAndFlush(Message.builder().messageHead(MessageHead.OFFLINE).body(ErrorAlertMessages.UserNotCertified).build());
+            channelHandlerContext.close();
+            return;
+        }
         ChannelId channelId = userChannelIdMap.get(message.getGoalId());
         if (channelId == null) {
             log.error("goal user:{} offline", message.getGoalId());
-            ch.writeAndFlush(Message.builder().messageHead(MessageHead.MUTUAL).body(ErrorAlertMessages.UserOffline).build());
+            channelHandlerContext.writeAndFlush(Message.builder().messageHead(MessageHead.MUTUAL).body(ErrorAlertMessages.UserOffline).build());
+            return;
         }
-        ChannelHandlerContext channelHandlerContext = channelHandlerContextMap.get(channelId);
-        if (channelHandlerContext == null) {
+        ChannelHandlerContext goalChannelHandlerContext = channelHandlerContextMap.get(channelId);
+        if (goalChannelHandlerContext == null) {
             log.error("goal user:{} offline", message.getGoalId());
             userChannelIdMap.remove(message.getGoalId());
-            ch.writeAndFlush(Message.builder().messageHead(MessageHead.MUTUAL).body(ErrorAlertMessages.UserOffline).build());
+            channelHandlerContext.writeAndFlush(Message.builder().messageHead(MessageHead.MUTUAL).body(ErrorAlertMessages.UserOffline).build());
+            return;
         }
-        log.error("localUser:{} --> goalUser:{}/ message:{}", message.getLocalId(), message.getGoalId(), message.getBody());
+        log.info("localUser:{} --> goalUser:{}/ message:{}", message.getLocalId(), message.getGoalId(), message.getBody());
         //目标用户id 和 发送方用户id互换，用于客户端理解
-        channelHandlerContext.writeAndFlush(Message.builder()
+        goalChannelHandlerContext.writeAndFlush(Message.builder()
+                .messageHead(MessageHead.MUTUAL)
                 .goalId(message.getLocalId())
                 .localId(message.getGoalId())
                 .body(message.getBody()).build());
+    }
+
+    /**
+     * 上线
+     * @param message
+     * @param channelHandlerContext
+     */
+    void online (Message message, ChannelHandlerContext channelHandlerContext) {
+        ChannelId channelId = channelHandlerContext.channel().id();
+        channelHandlerContextMap.put(channelId, channelHandlerContext);
+        userChannelIdMap.put(message.getLocalId(), channelId);
+        clientCount.add(channelHandlerContext);
+        channelHandlerContext.writeAndFlush(Message.builder()
+                .messageHead(MessageHead.AUTH_SUCCESS)
+                .body("asdasdasdas")
+                .build());
+        log.info("{} --> localUser:{} auth success; clientCount:{}", Instant.now(), message.getLocalId(), clientCount.size());
+    }
+
+    /**
+     * 下线
+     * @param message
+     * @param channelHandlerContext
+     */
+    void offline (Message message, ChannelHandlerContext channelHandlerContext) {
+        if (channelHandlerContext != null) {
+            ChannelId channelId = channelHandlerContext.channel().id();
+            channelHandlerContext.writeAndFlush(Message.builder().messageHead(MessageHead.OFFLINE).build());
+            channelHandlerContext.close();
+            channelHandlerContextMap.remove(channelId);
+            clientCount.remove(channelHandlerContext);
+        }
+        if (message != null){
+            userChannelIdMap.remove(message.getLocalId());
+        }
+        log.info("{} --> offline; clientCount:{}", Instant.now(), clientCount.size());
     }
 
 }

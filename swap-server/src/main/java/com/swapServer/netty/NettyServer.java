@@ -1,7 +1,9 @@
 package com.swapServer.netty;
 
+import com.swapCommon.Message;
 import com.swapCommon.coding.MessageDecoder;
 import com.swapCommon.coding.MessageEncoder;
+import com.swapCommon.header.MessageHead;
 import com.swapServer.config.NettyProperties;
 import com.swapServer.netty.handler.MessageHandler;
 import io.netty.bootstrap.ServerBootstrap;
@@ -12,6 +14,8 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.timeout.IdleStateEvent;
+import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.CharsetUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -49,7 +53,7 @@ public class NettyServer {
                     }
                 });
 
-        ChannelFuture future = bootstrap.bind(new InetSocketAddress(nettyProperties.getPort())).sync();
+        bootstrap.bind(new InetSocketAddress(nettyProperties.getPort())).sync();
         System.out.println(" server start up on port : " + nettyProperties.getPort());
     }
 
@@ -59,7 +63,7 @@ public class NettyServer {
             EventLoopGroup boss = new NioEventLoopGroup();
             EventLoopGroup work = new NioEventLoopGroup();
             bootstrap.group(boss,work)
-//                    .handler(new LoggingHandler(LogLevel.DEBUG))
+                    .handler(new LoggingHandler(LogLevel.DEBUG))
                     .channel(NioServerSocketChannel.class)
                     .childOption(ChannelOption.TCP_NODELAY, true)
                     .childOption(ChannelOption.AUTO_READ, true)
@@ -69,9 +73,16 @@ public class NettyServer {
                         protected void initChannel(Channel channel) throws Exception {
                             channel.pipeline().addLast(new MessageEncoder());
                             channel.pipeline().addLast(new MessageDecoder());
-//                            channel.pipeline().addLast("decoder",new StringDecoder(CharsetUtil.UTF_8));
-//                            channel.pipeline().addLast("encoder",new StringEncoder(CharsetUtil.UTF_8));
                             channel.pipeline().addLast(new MessageHandler());
+                            channel.pipeline().addLast(new IdleStateHandler(30, 30, 0) {
+                                @Override
+                                protected void channelIdle(ChannelHandlerContext channelHandlerContext, IdleStateEvent evt) throws Exception {
+                                    log.info("heart to channel:{}", channelHandlerContext.channel().id());
+                                    channelHandlerContext.channel().writeAndFlush(Message.builder()
+                                            .messageHead(MessageHead.HEART).build()).addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
+                                    super.channelIdle(channelHandlerContext, evt);
+                                }
+                            });
                         }
                     });
 

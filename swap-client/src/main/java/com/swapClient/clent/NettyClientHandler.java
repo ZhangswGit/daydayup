@@ -7,9 +7,8 @@ package com.swapClient.clent;
  * @Version : 0.1
  */
 
-
-import com.swapCommon.coding.Message;
-import com.swapCommon.coding.MessageHead;
+import com.swapCommon.Message;
+import com.swapCommon.header.MessageHead;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelId;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -50,20 +49,21 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
         Message message = (Message) msg;
         switch (message.getMessageHead()) {
             case MessageHead.AUTH_SUCCESS :
-                log.info("服务端认证成功");
+                log.info("{} --> auth success", Instant.now());
                 break;
             case MessageHead.MUTUAL :
-                log.info(message.getBody().toString());
                 log.info("{} --> {} 发送消息 {}", Instant.now(), message.getGoalId(), message.getBody());
                 break;
+            case MessageHead.OFFLINE :
+                channelHandlerContext.close();
+                log.info("{} --> 被下线", message.getLocalId());
         }
     }
 
 
     @Override
     public void exceptionCaught(ChannelHandlerContext channelHandlerContext, Throwable cause) {
-
-        log.info("服务端:[{}]发生异常[]", channelHandlerContext.channel().id(), cause.getMessage());
+        log.info("server :[{}] have some error {}", channelHandlerContext.channel().remoteAddress(), cause.getMessage());
         channelHandlerContext.close();
     }
 }

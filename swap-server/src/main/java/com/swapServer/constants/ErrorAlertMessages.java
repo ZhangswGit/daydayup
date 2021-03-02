@@ -9,7 +9,8 @@ public enum ErrorAlertMessages {
     EmailExits("邮箱已占用"),
     PhoneExits("手机号已占用"),
     UserOrPassWordError("账号或密码错误！请重试"),
-    UserOffline("用户下线");
+    UserOffline("用户下线"),
+    UserNotCertified("用户未认证");
 
     private String alias;
     ErrorAlertMessages(String alias){

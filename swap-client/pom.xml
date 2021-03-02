@@ -12,7 +12,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.swapServer</groupId>
+            <groupId>com.swap</groupId>
             <artifactId>swap-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
