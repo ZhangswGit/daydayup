@@ -1,14 +1,12 @@
-package com.swapCommon;
+package bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
-
 /**
- * @Data :  2021/2/26 10:57
+ * @Data :  2021/3/3 16:07
  * @Author : zhangsw
  * @Descripe : TODO
  * @Version : 0.1
@@ -17,13 +15,7 @@ import java.time.Instant;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Message {
-
-    private byte messageHead;
-
-    private Long localId;
-
-    private Long goalId;
-
-    private Object body;
+public class LoginUser {
+    private String userName;
+    private String passWord;
 }

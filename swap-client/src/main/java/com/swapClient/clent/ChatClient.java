@@ -1,7 +1,10 @@
 package com.swapClient.clent;
 
+import bean.SwapUser;
 import com.swapClient.util.PropertiesUtils;
-import com.swapCommon.Message;
+import bean.Message;
+import com.swapClient.window.LoginInterFace;
+import com.swapClient.window.MainInterface;
 import com.swapCommon.coding.MessageDecoder;
 import com.swapCommon.coding.MessageEncoder;
 import com.swapCommon.header.MessageHead;
@@ -23,19 +26,30 @@ import lombok.extern.slf4j.Slf4j;
 public class ChatClient {
 
     /**
-     * 客户端用户Id
+     * 客户端用户
      */
-    private long userId;
+    private SwapUser swapUser;
+
+    /**
+     * 客户端窗口
+     */
+    private MainInterface mainInterface;
+
+    /**
+     * 登录接口
+     */
+    private LoginInterFace loginInterFace;
 
     private ChannelFuture channelFuture;
+
+    public ChatClient(MainInterface mainInterface, LoginInterFace loginInterFace) {
+        this.mainInterface = mainInterface;
+        this.loginInterFace = loginInterFace;
+    }
 
     private final String SERVER_IP = PropertiesUtils.getAsString("server.host");
 
     private final int SERVER_PORT = PropertiesUtils.getAsInteger("server.port");
-
-    public ChatClient(long userId) {
-        this.userId = userId;
-    }
 
     public ChannelFuture getChannelFuture() {
         if (channelFuture != null) {
@@ -58,8 +72,8 @@ public class ChatClient {
                     protected void initChannel(Channel channel) throws Exception {
                         channel.pipeline().addLast("encoder", new MessageEncoder());
                         channel.pipeline().addLast("decoder", new MessageDecoder());
-                        channel.pipeline().addLast(new NettyClientHandler());
-                        channel.pipeline().addLast(new IdleStateHandler(5, 5, 0) {
+                        channel.pipeline().addLast(new NettyClientHandler(mainInterface, loginInterFace));
+                        channel.pipeline().addLast(new IdleStateHandler(30, 30, 0) {
                             @Override
                             protected void channelIdle(ChannelHandlerContext channelHandlerContext, IdleStateEvent evt) throws Exception {
                                 log.info("heart to channel:{}", channelHandlerContext.channel().id());
@@ -70,14 +84,10 @@ public class ChatClient {
                         });
                     }
                 });
-
-        channelFuture = bootstrap.connect(SERVER_IP, SERVER_PORT).addListener((ChannelFutureListener) ch -> {
-            if (ch.isSuccess()) {
-                log.info("client request certification");
-                ch.channel().writeAndFlush(Message.builder()
-                        .messageHead(MessageHead.AUTH)
-                        .localId(userId)
-                        .build());
+        channelFuture = bootstrap.connect(SERVER_IP, SERVER_PORT).addListener((ChannelFutureListener) future -> {
+            if (future.isSuccess()) {
+                mainInterface.setChannelFuture(future);
+                loginInterFace.setChannelFuture(future);
             }
         });
     }

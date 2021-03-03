@@ -13,7 +13,9 @@ public class MessageHead {
 
     public static final byte AUTH_SUCCESS = 0X76;//认证成功
 
-    public static final byte MUTUAL = 0X77;//交互
+    public static final byte AUTH_FAIL = 0X77;//认证成功
 
-    public static final byte OFFLINE = 0X78;//下线
+    public static final byte MUTUAL = 0X78;//交互
+
+    public static final byte OFFLINE = 0X79;//下线
 }

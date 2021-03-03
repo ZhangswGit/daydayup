@@ -1,5 +1,6 @@
 package com.swapServer.service;
 
+import bean.SwapUser;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.swapServer.bean.User;
 import com.swapServer.constants.ErrorAlertMessages;
@@ -8,13 +9,15 @@ import com.swapServer.mapper.UserMapper;
 import com.swapServer.model.request.CreateUserRequest;
 import com.swapServer.model.request.QueryUserRequest;
 import com.swapServer.model.request.UpdateUserRequest;
+import com.swapServer.netty.Model.UserModel;
+import com.swapServer.transform.UserTransform;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @Data : 2020/12/25
@@ -26,7 +29,10 @@ import java.util.Optional;
 public class UserService extends MybatisPlusServiceEnhancer<UserMapper, User>{
 
     @Autowired
-    UserMapper userMapper;
+    private UserMapper userMapper;
+
+    @Autowired
+    private UserTransform userTransform;
 
     private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
@@ -84,5 +90,26 @@ public class UserService extends MybatisPlusServiceEnhancer<UserMapper, User>{
     public IPage<User> findAllUser(QueryUserRequest queryUserRequest, Pageable pageable){
         IPage<User> userIPage = convert(pageable);
         return userMapper.findAllUser(queryUserRequest, userIPage);
+    }
+
+    public UserModel auth(String userName, String passWord) {
+//        Optional<User> user = userMapper.findUserByNameOrPhoneOrEmail(userName);
+//        if (user.isPresent()) {
+//            return userTransform.toModel(user.get());
+//        }
+//        return null;
+        Map<String, UserModel> users = new HashMap<String, UserModel>();
+        users.put("张三", UserModel.builder().userName("张三").userId(12138l).build());
+        users.put("李四", UserModel.builder().userName("李四").userId(333888l).build());
+        users.put("王五", UserModel.builder().userName("王五").userId(222444).build());
+        return users.get(userName);
+    }
+
+    public List<UserModel> findAllUser() {
+        List<UserModel> users = new ArrayList<>();
+        users.add(UserModel.builder().userName("张三").userId(12138l).build());
+        users.add(UserModel.builder().userName("李四").userId(333888l).build());
+        users.add(UserModel.builder().userName("王五").userId(222444).build());
+        return users;
     }
 }

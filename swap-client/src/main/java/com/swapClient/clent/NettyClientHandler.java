@@ -7,23 +7,49 @@ package com.swapClient.clent;
  * @Version : 0.1
  */
 
-import com.swapCommon.Message;
+import bean.Message;
+import bean.SwapUser;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.swapClient.window.LoginInterFace;
+import com.swapClient.window.MainInterface;
+import com.swapCommon.define.Define;
 import com.swapCommon.header.MessageHead;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelId;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.List;
+import java.util.Locale;
 
 @Slf4j
+@Data
 public class NettyClientHandler extends ChannelInboundHandlerAdapter {
+
+    private MainInterface mainInterface;
+
+    private LoginInterFace loginInterFace;
+
+    private ObjectMapper objectMapper = new ObjectMapper();
+
+    private DateTimeFormatter formatter =
+            DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT )
+                    .withLocale( Locale.CHINESE )
+                    .withZone( ZoneId.systemDefault() );
+
+    public NettyClientHandler (MainInterface mainInterface, LoginInterFace loginInterFace){
+        this.mainInterface = mainInterface;
+        this.loginInterFace = loginInterFace;
+    }
 
     @Override
     public void channelActive(ChannelHandlerContext channelHandlerContext) {
-
-        ChannelId channelId = channelHandlerContext.channel().id();
-        log.info("{} --  ClientHandler :{} Active", Instant.now(), channelId);
+        log.info("{} --> swap-server active", Instant.now());
     }
 
     /**
@@ -34,10 +60,8 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelInactive(ChannelHandlerContext channelHandlerContext) {
-
-        ChannelId channelId = channelHandlerContext.channel().id();
         channelHandlerContext.close();
-        log.info("{} -- ClientHandler :{} closed", Instant.now(), channelId);
+        log.info("{} --> swap-server :{} closed", Instant.now());
     }
 
     @Override
@@ -48,21 +72,40 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
         }
         Message message = (Message) msg;
         switch (message.getMessageHead()) {
+            case MessageHead.AUTH_FAIL :
+                log.info("{} --> server auth fail", Instant.now());
+                loginInterFace.getJTextArea().setText("账号或密码错误！");
+                break;
             case MessageHead.AUTH_SUCCESS :
-                log.info("{} --> auth success", Instant.now());
+                log.info("{} --> server auth success", Instant.now());
+                loginInterFace.setVisible(false);
+                //接受之后 LinkHashMap 使用 objectMapper进行转换
+                mainInterface.visible(objectMapper.convertValue(message.getBody(), new TypeReference<List<SwapUser>>(){}));
+                mainInterface.setLocalSwapUser(message.getLocalSwapUser());
+                mainInterface.setVisible(true);
                 break;
             case MessageHead.MUTUAL :
-                log.info("{} --> {} 发送消息 {}", Instant.now(), message.getGoalId(), message.getBody());
+                Define define = message.getDefine();
+                if (define == Define.goalUserOffline) {
+                    log.info("{} --> goal user not exits", Instant.now());
+                    mainInterface.getJTextArea().append(formatter.format(Instant.now()) + "\r\n");
+                    mainInterface.getJTextArea().append(Define.goalUserOffline.getDetail() + "\r\n");
+                } else {
+                    log.info("{} --> {} send message {}", Instant.now(), message.getGoalSwapUser().getUserName(), message.getBody());
+                    mainInterface.getJTextArea().append(String.format("%s   %s", message.getGoalSwapUser().getUserName(), formatter.format(Instant.now()) + "\r\n"));
+                    mainInterface.getJTextArea().append(message.getBody() + "\r\n");
+                }
                 break;
             case MessageHead.OFFLINE :
                 channelHandlerContext.close();
-                log.info("{} --> 被下线", message.getLocalId());
+                log.info("{} --> forced offline", message.getLocalSwapUser().getUserName());
         }
     }
 
 
     @Override
     public void exceptionCaught(ChannelHandlerContext channelHandlerContext, Throwable cause) {
+        cause.printStackTrace();
         log.info("server :[{}] have some error {}", channelHandlerContext.channel().remoteAddress(), cause.getMessage());
         channelHandlerContext.close();
     }
