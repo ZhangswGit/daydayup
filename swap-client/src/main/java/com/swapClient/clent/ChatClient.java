@@ -1,8 +1,7 @@
 package com.swapClient.clent;
 
-import bean.SwapUser;
-import com.swapClient.util.PropertiesUtils;
 import bean.Message;
+import com.swapClient.util.PropertiesUtils;
 import com.swapClient.window.LoginInterFace;
 import com.swapClient.window.MainInterface;
 import com.swapCommon.coding.MessageDecoder;
@@ -26,21 +25,14 @@ import lombok.extern.slf4j.Slf4j;
 public class ChatClient {
 
     /**
-     * 客户端用户
-     */
-    private SwapUser swapUser;
-
-    /**
      * 客户端窗口
      */
     private MainInterface mainInterface;
 
     /**
-     * 登录接口
+     * 登录窗口
      */
     private LoginInterFace loginInterFace;
-
-    private ChannelFuture channelFuture;
 
     public ChatClient(MainInterface mainInterface, LoginInterFace loginInterFace) {
         this.mainInterface = mainInterface;
@@ -51,14 +43,6 @@ public class ChatClient {
 
     private final int SERVER_PORT = PropertiesUtils.getAsInteger("server.port");
 
-    public ChannelFuture getChannelFuture() {
-        if (channelFuture != null) {
-            return channelFuture;
-        }
-        start();
-        log.info("client reconnection");
-        return channelFuture;
-    }
 
     public void start() {
 
@@ -84,7 +68,8 @@ public class ChatClient {
                         });
                     }
                 });
-        channelFuture = bootstrap.connect(SERVER_IP, SERVER_PORT).addListener((ChannelFutureListener) future -> {
+
+        bootstrap.connect(SERVER_IP, SERVER_PORT).addListener((ChannelFutureListener) future -> {
             if (future.isSuccess()) {
                 mainInterface.setChannelFuture(future);
                 loginInterFace.setChannelFuture(future);

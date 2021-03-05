@@ -55,7 +55,7 @@ public class MessageHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext channelHandlerContext, Object obj) {
         if (!(obj instanceof Message)) {
             log.error("Message:{} format error", obj);
-            offline(channelHandlerContext);
+            offline(channelHandlerContext, false);
         }
 
         try {
@@ -88,7 +88,7 @@ public class MessageHandler extends ChannelInboundHandlerAdapter {
         String clientIp = inetSocketAddress.getAddress().getHostAddress();
         int clientPort = inetSocketAddress.getPort();
 
-        offline(channelHandlerContext);
+        offline(channelHandlerContext, false);
         log.info("client [{}:{}] offline", clientIp, clientPort);
     }
 
@@ -110,7 +110,7 @@ public class MessageHandler extends ChannelInboundHandlerAdapter {
     private void authenticateHandle(ChannelHandlerContext channelHandlerContext, Message message) {
 
         Object body = message.getBody();
-        UserModel userModel = null;
+        UserModel userModel;
         try {
             //账号密码认证
             LoginUser loginUser = objectMapper.convertValue(body, LoginUser.class);
@@ -119,6 +119,7 @@ public class MessageHandler extends ChannelInboundHandlerAdapter {
             e.printStackTrace();
             channelHandlerContext.channel().writeAndFlush(Message.builder()
                     .messageHead(MessageHead.AUTH_FAIL)
+                    .define(Define.userOrPassWordError)
                     .build());
             log.info("{} auth fail", body);
             return;
@@ -128,6 +129,7 @@ public class MessageHandler extends ChannelInboundHandlerAdapter {
             //认证失败
             channelHandlerContext.channel().writeAndFlush(Message.builder()
                     .messageHead(MessageHead.AUTH_FAIL)
+                    .define(Define.userOrPassWordError)
                     .build());
             log.info("{} auth fail", body);
             return;
@@ -136,7 +138,7 @@ public class MessageHandler extends ChannelInboundHandlerAdapter {
         ChannelHandlerContext channelHandlerContextOld = userChannelHandlerContextMap.get(userModel.getUserId());
         if (channelHandlerContextOld != null) {
             //先下线已经登陆的用户
-            offline(channelHandlerContextOld);
+            offline(channelHandlerContextOld, true);
         }
         //上线
         online(userModel, channelHandlerContext);
@@ -169,7 +171,6 @@ public class MessageHandler extends ChannelInboundHandlerAdapter {
 
     /**
      * 上线
-     *
      * @param userModel
      * @param channelHandlerContext
      */
@@ -201,10 +202,14 @@ public class MessageHandler extends ChannelInboundHandlerAdapter {
     /**
      * 下线
      * @param channelHandlerContext
+     * @param force 是否强制下线
      */
-    void offline(ChannelHandlerContext channelHandlerContext) {
+    void offline(ChannelHandlerContext channelHandlerContext, boolean force) {
         if (channelHandlerContext != null) {
-            channelHandlerContext.writeAndFlush(Message.builder().messageHead(MessageHead.OFFLINE).build());
+            channelHandlerContext.writeAndFlush(Message.builder()
+                    .messageHead(MessageHead.OFFLINE)
+                    .define(force ? Define.userForceOffline : null)
+                    .build());
             channelHandlerContext.close();
             Long userId = channelHandlerContextUserMap.get(channelHandlerContext);
             if (userId != null) {

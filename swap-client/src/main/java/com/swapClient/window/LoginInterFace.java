@@ -21,11 +21,10 @@ import java.awt.event.ActionListener;
  * @Version : 0.1
  */
 @Slf4j
-@Data
 public class LoginInterFace extends JFrame {
     private ChannelFuture channelFuture;
 
-    private JTextArea jTextArea;
+    private JTextArea jTextArea;//信息提示 一般是错误提示
 
     private JTextField jTextField;//输入账号
 
@@ -33,7 +32,20 @@ public class LoginInterFace extends JFrame {
 
     private JButton jButton;//登录按钮
 
-    public LoginInterFace(String title) {
+    private static LoginInterFace loginInterFace;//登录窗口 单例
+
+    public static LoginInterFace getLoginInterFace() {
+        if (loginInterFace == null) {
+            synchronized (LoginInterFace.class) {
+                if (loginInterFace == null) {
+                    return new LoginInterFace("登录界面");
+                }
+            }
+        }
+        return loginInterFace;
+    }
+
+    private LoginInterFace(String title) {
         this.setTitle(title);
         this.setSize(400, 250);//窗口大小
         this.setLocation(200, 200);//窗口位置
@@ -43,7 +55,7 @@ public class LoginInterFace extends JFrame {
         this.setVisible(true);
     }
 
-    public JPanel loginJPanel() {
+    private JPanel loginJPanel() {
         JPanel loginJPanel = new JPanel();
 
         JLabel label1 = new JLabel("用户名:");
@@ -82,5 +94,33 @@ public class LoginInterFace extends JFrame {
             }
         });
         return loginJPanel;
+    }
+
+    /**
+     * 添加信息提示
+     * @param message
+     */
+    public void addErrorMessage(String message) {
+        jTextArea.setText(message);
+    }
+
+    /**
+     * 设置登录窗口的显示状态
+     * @param visible
+     */
+    public void setLoginInterFaceVisible(boolean visible) {
+        //展示消息清空
+        jTextArea.setText("");
+        jPasswordField.setText("");
+        jTextField.setText("");
+        this.setVisible(visible);
+    }
+
+    /**
+     * 登录设置通道
+     * @param channelFuture
+     */
+    public void setChannelFuture(ChannelFuture channelFuture) {
+        this.channelFuture = channelFuture;
     }
 }

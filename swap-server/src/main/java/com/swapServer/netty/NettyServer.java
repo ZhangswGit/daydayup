@@ -69,7 +69,7 @@ public class NettyServer {
             bootstrap.bind(nettyProperties.getPort()).sync();
             log.info(" server start up on port : " + nettyProperties.getPort());
         } catch (InterruptedException e) {
-            log.error("start swap server fail restart");
+            log.error("start swap server fail ----> restart");
             try {
                 Thread.sleep(10000l);
             } catch (InterruptedException ex) {

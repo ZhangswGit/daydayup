@@ -29,7 +29,6 @@ import java.util.Locale;
 import java.util.Optional;
 
 @Slf4j
-@Data
 public class NettyClientHandler extends ChannelInboundHandlerAdapter {
 
     private MainInterface mainInterface;
@@ -62,7 +61,7 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelInactive(ChannelHandlerContext channelHandlerContext) {
         channelHandlerContext.close();
-        log.info("{} --> swap-server :{} closed", Instant.now());
+        log.info("{} --> swap-server closed", Instant.now());
     }
 
     @Override
@@ -74,38 +73,43 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
         Message message = (Message) msg;
         switch (message.getMessageHead()) {
             case MessageHead.AUTH_FAIL :
-                log.info("{} --> server auth fail", Instant.now());
-                loginInterFace.getJTextArea().setText("账号或密码错误！");
+                log.info("{} --> server username password auth fail :{}", Instant.now(), message.getDefine());
+                //展示错误信息
+                loginInterFace.addErrorMessage(Optional.ofNullable(message.getDefine())
+                        .map(x -> x.getDetail()).orElse(Define.userOrPassWordError.getDetail()));
                 break;
             case MessageHead.AUTH_SUCCESS :
-                log.info("{} --> server auth success", Instant.now());
-                loginInterFace.setVisible(false);
+                log.info("{} --> server username password auth success", Instant.now());
+                loginInterFace.setLoginInterFaceVisible(false);
                 //接受之后 LinkHashMap 使用 objectMapper进行转换
-                mainInterface.visible(Optional.ofNullable(message.getBody())
+                mainInterface.setMainInterfaceVisible(message.getLocalSwapUser(), Optional.ofNullable(message.getBody())
                         .map(x -> objectMapper.convertValue(message.getBody(), new TypeReference<List<SwapUser>>(){}))
-                        .orElse(null));
-                mainInterface.setLocalSwapUser(message.getLocalSwapUser());
-                mainInterface.setVisible(true);
+                        .orElse(null), true);
                 break;
             case MessageHead.MUTUAL :
                 Define define = message.getDefine();
-                if (define == Define.goalUserOffline) {
-                    log.info("{} --> goal user not exits", Instant.now());
-                    mainInterface.getJTextArea().append(formatter.format(Instant.now()) + "\r\n");
-                    mainInterface.getJTextArea().append(Define.goalUserOffline.getDetail() + "\r\n");
+                if (define != Define.normal) {
+                    log.info("{} --> goal user {}", Instant.now(), define);
+                    mainInterface.addMessage(formatter.format(Instant.now()) + "\r\n");
+                    mainInterface.addMessage(define.getDetail() + "\r\n");
                 } else {
                     log.info("{} --> {} send message {}", Instant.now(), message.getGoalSwapUser().getUserName(), message.getBody());
-                    mainInterface.getJTextArea().append(String.format("%s   %s", message.getGoalSwapUser().getUserName(), formatter.format(Instant.now()) + "\r\n"));
-                    mainInterface.getJTextArea().append(message.getBody() + "\r\n");
+                    mainInterface.addMessage(String.format("%s   %s", message.getGoalSwapUser().getUserName(), formatter.format(Instant.now()) + "\r\n"));
+                    mainInterface.addMessage(message.getBody() + "\r\n");
                 }
                 break;
             case MessageHead.OFFLINE :
-                channelHandlerContext.close();
-                log.info("{} --> forced offline", message.getLocalSwapUser().getUserName());
+                loginInterFace.setLoginInterFaceVisible(true);
+                mainInterface.setMainInterfaceVisible(null, null, false);
+                log.info("{} --> user offline", Instant.now());
+                if (message.getDefine() != Define.userForceOffline) {
+                    channelHandlerContext.close();
+                } else {
+                    loginInterFace.addErrorMessage(Define.userForceOffline.getDetail());
+                }
                 break;
         }
     }
-
 
     @Override
     public void exceptionCaught(ChannelHandlerContext channelHandlerContext, Throwable cause) {
@@ -113,6 +117,7 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
         log.info("server :[{}] have some error {}", channelHandlerContext.channel().remoteAddress(), cause.getMessage());
         channelHandlerContext.close();
     }
+
 }
 
 
