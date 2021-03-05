@@ -26,6 +26,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 @Slf4j
 @Data
@@ -80,7 +81,9 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
                 log.info("{} --> server auth success", Instant.now());
                 loginInterFace.setVisible(false);
                 //接受之后 LinkHashMap 使用 objectMapper进行转换
-                mainInterface.visible(objectMapper.convertValue(message.getBody(), new TypeReference<List<SwapUser>>(){}));
+                mainInterface.visible(Optional.ofNullable(message.getBody())
+                        .map(x -> objectMapper.convertValue(message.getBody(), new TypeReference<List<SwapUser>>(){}))
+                        .orElse(null));
                 mainInterface.setLocalSwapUser(message.getLocalSwapUser());
                 mainInterface.setVisible(true);
                 break;
@@ -99,6 +102,7 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
             case MessageHead.OFFLINE :
                 channelHandlerContext.close();
                 log.info("{} --> forced offline", message.getLocalSwapUser().getUserName());
+                break;
         }
     }
 

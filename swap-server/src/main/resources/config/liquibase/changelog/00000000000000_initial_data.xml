@@ -6,16 +6,16 @@
 
     <changeSet author="zhangsw (generated)" id="1605663434831-1">
         <sql>
-            insert into resource (resource_name, resource_path) values ("概览", "/overview"), ("日志审计", "/syslog"), ("资源管理", "/resource");
-            insert into resource (resource_name, resource_path, parent_id, type) values ("登录日志审计", "/loginLog", 2, "catalog");
-            insert into organization (name, type) value ("无组织", "catalog");
-            insert into role (role_name) values ("系统管理员"), ("日志审计角色"), ("资源管理角色");
+            insert into resource (resource_name, resource_path, is_system) values ("概览", "/overview", true), ("日志审计", "/syslog", true), ("资源管理", "/resource", true);
+            insert into resource (resource_name, resource_path, parent_id, type, is_system) values ("登录日志审计", "/loginLog", 2, "catalog", true);
+            insert into organization (name, type, is_system) value ("无组织", "catalog", true);
+            insert into role (role_name, is_system) values ("系统管理员", true), ("日志审计角色", true), ("资源管理角色", true);
         </sql>
     </changeSet>
     <changeSet author="zhangsw (generated)" id="1605663434831-2">
         <sql>
             insert into role_resource (role_id, resource_id) values (1,1),(1,2),(1,3),(1,4),(2,2),(3,3);
-            insert into user (name, pass_word, role_id, phone, email, organization_id) values ("sysAdmin", "$2a$10$WmmsYcOxDxIiWkehkQUcMuDO2tQSR1DxONU4Utklzlq1l1XNGoHSW", 1, "13367@163.com", "17600945065", 1), ("logAdmin", "$2a$10$WmmsYcOxDxIiWkehkQUcMuDO2tQSR1DxONU4Utklzlq1l1XNGoHSW", 2, "13367@qq.com", "17600945066", 1);
+            insert into user (name, nick_name, pass_word, role_id, phone, email, organization_id, is_system) values ("sysAdmin", "系统管理员", "$2a$10$WmmsYcOxDxIiWkehkQUcMuDO2tQSR1DxONU4Utklzlq1l1XNGoHSW", 1, "13367@163.com", "17600945065", 1, true), ("logAdmin", "日志审计员", "$2a$10$WmmsYcOxDxIiWkehkQUcMuDO2tQSR1DxONU4Utklzlq1l1XNGoHSW", 2, "13367@qq.com", "17600945066", 1, true);
         </sql>
     </changeSet>
 

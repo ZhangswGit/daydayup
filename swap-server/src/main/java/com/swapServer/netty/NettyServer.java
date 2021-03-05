@@ -16,6 +16,7 @@ import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.handler.timeout.IdleStateHandler;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -29,6 +30,9 @@ import javax.annotation.Resource;
 @Slf4j
 @Component
 public class NettyServer {
+
+    @Autowired
+    private UserService userService;
 
     @Resource(name = "NettyProperties")
     private NettyProperties nettyProperties;
@@ -49,7 +53,7 @@ public class NettyServer {
                         protected void initChannel(Channel channel) throws Exception {
                             channel.pipeline().addLast(new MessageEncoder());
                             channel.pipeline().addLast(new MessageDecoder());
-                            channel.pipeline().addLast(new MessageHandler());
+                            channel.pipeline().addLast(new MessageHandler(userService));
                             channel.pipeline().addLast(new IdleStateHandler(30, 30, 0) {
                                 @Override
                                 protected void channelIdle(ChannelHandlerContext channelHandlerContext, IdleStateEvent evt) throws Exception {

@@ -1,6 +1,7 @@
 package com.swapServer.demo.mock;
 
 import com.swapServer.bean.Resource;
+import com.swapServer.demo.mock.AbstractBeanTest;
 import com.swapServer.mapper.ResourceMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;

@@ -3,11 +3,20 @@ package com.swapServer.bean;
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Tolerate;
+
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Data
 @Builder
 @TableName("user")
 public class User extends SystemBean{
+
+    @Tolerate
+    public User(){}
 
     @TableId(value = "id", type = IdType.AUTO)
     private long id;
@@ -33,10 +42,14 @@ public class User extends SystemBean{
     @TableField("organization_id")
     private long organizationId;
 
+    @ManyToOne
     @TableField(exist = false)
+    @JoinColumn(name = "organizationId", nullable = false)
     private Organization organization;
 
+    @ManyToOne
     @TableField(exist = false)
+    @JoinColumn(name = "roleId", nullable = false)
     private Role role;
 
 }

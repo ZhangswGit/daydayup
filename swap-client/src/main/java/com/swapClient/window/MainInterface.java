@@ -7,6 +7,7 @@ import io.netty.channel.ChannelFuture;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.CollectionUtils;
 
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
@@ -87,9 +88,12 @@ public class MainInterface extends JFrame {
         JPanel southJPanel = new JPanel();
 
         jComboBox = new JComboBox();
-        users.stream().forEach(user -> jComboBox.addItem(user));
-        //默认选取第一个用户为被选中用户
-        goalSwapUser = users.get(0);
+
+        if (!CollectionUtils.isEmpty(users)) {
+            users.stream().forEach(user -> jComboBox.addItem(user));
+            //默认选取第一个用户为被选中用户
+            goalSwapUser = users.get(0);
+        }
 
         jComboBox.addPopupMenuListener(new PopupMenuListener(){
             @Override
@@ -99,7 +103,7 @@ public class MainInterface extends JFrame {
 
             public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
                 goalSwapUser = (SwapUser) jComboBox.getSelectedItem();
-                log.info("selected goalUser {}", goalSwapUser.getUserName());
+                log.info("selected goalUser :{}", goalSwapUser);
             }
 
             public void popupMenuCanceled(PopupMenuEvent e) {
@@ -110,6 +114,12 @@ public class MainInterface extends JFrame {
         jButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+
+                if (goalSwapUser == null) {
+                    jTextArea.append("请先选择用户！" + "\r\n");
+                    return;
+                }
+
                 String text = jTextField.getText();
                 if (StringUtils.isBlank(text.trim())) {
                     return;

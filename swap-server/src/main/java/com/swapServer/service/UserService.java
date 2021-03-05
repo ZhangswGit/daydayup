@@ -1,8 +1,8 @@
 package com.swapServer.service;
 
-import bean.SwapUser;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.swapServer.bean.User;
+import com.swapServer.config.security.MyUsernamePasswordAuthenticationToken;
 import com.swapServer.constants.ErrorAlertMessages;
 import com.swapServer.error.BadRequestException;
 import com.swapServer.mapper.UserMapper;
@@ -11,13 +11,20 @@ import com.swapServer.model.request.QueryUserRequest;
 import com.swapServer.model.request.UpdateUserRequest;
 import com.swapServer.netty.Model.UserModel;
 import com.swapServer.transform.UserTransform;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @Data : 2020/12/25
@@ -25,11 +32,15 @@ import java.util.*;
  * @Descripe : TODO
  * @Version : 0.1
  */
+@Slf4j
 @Service
 public class UserService extends MybatisPlusServiceEnhancer<UserMapper, User>{
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @Autowired
     private UserTransform userTransform;
@@ -56,23 +67,23 @@ public class UserService extends MybatisPlusServiceEnhancer<UserMapper, User>{
         }
         User oldUser = userOpt.get();
         boolean update = false;
-        if(!StringUtils.equals(updateUserRequest.getEmail(), oldUser.getEmail())){
+        if(StringUtils.isNotBlank(updateUserRequest.getEmail()) && !StringUtils.equals(updateUserRequest.getEmail(), oldUser.getEmail())){
             oldUser.setEmail(updateUserRequest.getEmail());
             update = true;
         }
-        if(!StringUtils.equals(updateUserRequest.getPhone(), oldUser.getPhone())){
+        if(StringUtils.isNotBlank(updateUserRequest.getPhone()) && !StringUtils.equals(updateUserRequest.getPhone(), oldUser.getPhone())){
             oldUser.setPhone(updateUserRequest.getPhone());
             update = true;
         }
-        if(!StringUtils.equals(updateUserRequest.getNickName(), oldUser.getNickName())){
+        if(StringUtils.isNotBlank(updateUserRequest.getNickName()) && !StringUtils.equals(updateUserRequest.getNickName(), oldUser.getNickName())){
             oldUser.setNickName(updateUserRequest.getNickName());
             update = true;
         }
-        if(updateUserRequest.getOrganizationId() != oldUser.getOrganizationId()){
+        if(updateUserRequest.getOrganizationId() != 0 &&updateUserRequest.getOrganizationId() != oldUser.getOrganizationId()){
             oldUser.setOrganizationId(updateUserRequest.getOrganizationId());
             update = true;
         }
-        if(updateUserRequest.getRoleId() != oldUser.getRoleId()){
+        if(updateUserRequest.getRoleId() != 0 && updateUserRequest.getRoleId() != oldUser.getRoleId()){
             oldUser.setRoleId(updateUserRequest.getRoleId());
             update = true;
         }
@@ -92,24 +103,36 @@ public class UserService extends MybatisPlusServiceEnhancer<UserMapper, User>{
         return userMapper.findAllUser(queryUserRequest, userIPage);
     }
 
+    //client端账号密码认证
     public UserModel auth(String userName, String passWord) {
-//        Optional<User> user = userMapper.findUserByNameOrPhoneOrEmail(userName);
-//        if (user.isPresent()) {
-//            return userTransform.toModel(user.get());
-//        }
-//        return null;
-        Map<String, UserModel> users = new HashMap<String, UserModel>();
-        users.put("张三", UserModel.builder().userName("张三").userId(12138l).build());
-        users.put("李四", UserModel.builder().userName("李四").userId(333888l).build());
-        users.put("王五", UserModel.builder().userName("王五").userId(222444).build());
-        return users.get(userName);
+        MyUsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new MyUsernamePasswordAuthenticationToken(userName, passWord);
+        Authentication authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+        UserModel userModel = Optional.ofNullable(authenticate).map(x -> {
+            Optional<User> user = userMapper.findUserByNameOrPhoneOrEmail(userName);
+            if (user.isPresent()) {
+                log.debug("client userName:{},password:{} auth success", userName, passWord);
+                return userTransform.toModel(user.get());
+            }
+            return null;
+        }).orElse(null);
+
+        if (userModel == null) {
+            log.debug("client userName:{},password:{} auth fail", userName, passWord);
+        }
+
+        return userModel;
     }
 
+    /**
+     * client 获取当前系统所有用户
+     * @return
+     */
     public List<UserModel> findAllUser() {
-        List<UserModel> users = new ArrayList<>();
-        users.add(UserModel.builder().userName("张三").userId(12138l).build());
-        users.add(UserModel.builder().userName("李四").userId(333888l).build());
-        users.add(UserModel.builder().userName("王五").userId(222444).build());
-        return users;
+        List<User> userList = userMapper.selectList(null);
+        if (CollectionUtils.isEmpty(userList)) {
+            return null;
+        }
+        List<UserModel> userModels = userList.stream().map(userTransform::toModel).collect(Collectors.toList());
+        return userModels;
     }
 }

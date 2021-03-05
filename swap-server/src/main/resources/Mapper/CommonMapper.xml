@@ -4,28 +4,36 @@
 
     <resultMap id="UserResultMap" type="com.swapServer.bean.User">
         <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="pass_word" property="passWord"/>
+        <result column="email" property="email"/>
+        <result column="phone" property="phone"/>
+        <result column="role_id" property="roleId"/>
+        <result column="organization_id" property="organizationId"/>
         <association property="role" column="role_id" select="findRoleByRoleId"/>
         <association property="organization" column="organization_id" select="findOrganizationByOrganizationId"/>
     </resultMap>
 
     <resultMap id="RoleResultMap" type="com.swapServer.bean.Role">
         <id column="id" property="id"/>
-        <result column="role_name" property="role"/>
+        <result column="role_name" property="roleName"/>
         <association property="parentRole" column="parent_id" select="findRoleByRoleId"/>
         <collection property="resources" ofType="com.swapServer.bean.Resource" column="id" select="findAllResourceByRoleId"/>
     </resultMap>
 
     <resultMap id="ResourceResultMap" type="com.swapServer.bean.Resource">
         <id column="id" property="id"/>
-<!--        <result property="type" column="type"/>-->
-<!--
+        <result property="type" column="type"/>
         <result property="parentId" column="parent_id"/>
--->
         <association property="parentResource" column="parent_id" select="findResourceByResourceId"/>
     </resultMap>
 
     <resultMap id="OrganizationResultMap" type="com.swapServer.bean.Organization">
         <id column="id" property="id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="name" column="name"/>
+        <result property="type" column="type"/>
         <association property="parentOrganization" column="parent_id" select="findOrganizationByOrganizationId"/>
     </resultMap>
 
@@ -56,9 +64,4 @@
         on rr.resource_id = re.id
         where rr.role_id = #{id}
     </select>
-
-    <sql id="condition">
-        and is_delete = 0
-    </sql>
-
 </mapper>

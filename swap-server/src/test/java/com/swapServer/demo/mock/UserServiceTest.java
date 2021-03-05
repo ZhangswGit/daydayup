@@ -3,6 +3,7 @@ package com.swapServer.demo.mock;
 import com.swapServer.bean.User;
 import com.swapServer.mapper.UserMapper;
 import com.swapServer.model.request.CreateUserRequest;
+import com.swapServer.model.request.UpdateUserRequest;
 import com.swapServer.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -41,11 +42,20 @@ public class UserServiceTest extends AbstractBeanTest {
 
     @Test
     public void findUser() {
-        Optional<User> userOpt = userMapper.findUserById(4);
+        Optional<User> userOpt = userMapper.findUserById(3);
         if (userOpt.isPresent()) {
             User user = userOpt.get();
-            user.getCreateDate();
+           log.info("user :{}", user);
         }
+    }
+
+    @Test
+    public void updateUser() {
+        UpdateUserRequest updateUserRequest = new UpdateUserRequest();
+        updateUserRequest.setId(3l);
+        updateUserRequest.setEmail("13368@qq.com");
+        User user = userService.updateUser(updateUserRequest);
+        log.info("update user:{}", user);
     }
 }
 
