@@ -16,7 +16,7 @@ public class UserTransform {
     public UserModel toModel(User user) {
         return UserModel.builder()
                 .userId(user.getId())
-                .userName(user.getName())
+                .userName(user.getNickName())
                 .build();
     }
 }

@@ -50,6 +50,7 @@ public class UserService extends MybatisPlusServiceEnhancer<UserMapper, User>{
     public User createUser(CreateUserRequest createUserRequest){
         User user = User.builder()
                 .name(createUserRequest.getName())
+                .nickName(createUserRequest.getNickName())
                 .passWord(bCryptPasswordEncoder.encode(createUserRequest.getPassword()))
                 .phone(createUserRequest.getPhone())
                 .email(createUserRequest.getEmail())

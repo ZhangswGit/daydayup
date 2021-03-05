@@ -2,10 +2,10 @@ package com.swapClient.window;
 
 import bean.LoginUser;
 import bean.Message;
+import com.swapCommon.define.Define;
 import com.swapCommon.header.MessageHead;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -78,7 +78,7 @@ public class LoginInterFace extends JFrame {
                 String userName = jTextField.getText().trim();
                 String passWord = new String(jPasswordField.getPassword());
                 if (StringUtils.isAnyBlank(userName, passWord)) {
-                    jTextArea.setText("请输入账号密码");
+                    jTextArea.setText(Define.userOrPassWordIsNull.getDetail());
                     return;
                 }
                 log.info("userName:{},passWord:{}", userName, passWord);

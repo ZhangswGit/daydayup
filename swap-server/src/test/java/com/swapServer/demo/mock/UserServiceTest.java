@@ -29,11 +29,12 @@ public class UserServiceTest extends AbstractBeanTest {
     @Test
     public void createUser() {
         CreateUserRequest createUserRequest = new CreateUserRequest();
-        createUserRequest.setName("zsw");
-        createUserRequest.setEmail("13367@qq.com");
+        createUserRequest.setName("ryh");
+        createUserRequest.setNickName("任玉辉");
+        createUserRequest.setEmail("13368@qq.com");
         createUserRequest.setPassword("123456");
         createUserRequest.setOrganizationId(1);
-        createUserRequest.setPhone("17600945506");
+        createUserRequest.setPhone("17600945507");
         createUserRequest.setRoleId(1);
 
         User user = userService.createUser(createUserRequest);
