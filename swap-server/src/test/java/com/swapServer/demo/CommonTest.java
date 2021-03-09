@@ -261,6 +261,10 @@ public class CommonTest {
         compressFileAnalyzer.analyze(compressFile);
     }
 
+    @Test
+    public void mavenTest() {
+    }
+
     public static void main(String[] args) {
     }
 }

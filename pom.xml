@@ -173,20 +173,12 @@
             <artifactId>netty-all</artifactId>
             <version>4.1.45.Final</version>
         </dependency>
+        <!--<dependency>
+            <groupId>org.joone</groupId>
+            <artifactId>joone-engine</artifactId>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/Evn/localLib/joone-engine.jar</systemPath>
+        </dependency>-->
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>3.0.0-M1</version>
-                <configuration>
-                    <tagNameFormat>v@{project.version}</tagNameFormat>
-                    <arguments>-DskipTests -DignoreSnapshots=true</arguments>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

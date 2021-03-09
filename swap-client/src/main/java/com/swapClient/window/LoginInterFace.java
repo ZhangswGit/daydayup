@@ -52,7 +52,6 @@ public class LoginInterFace extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);//关闭按钮关闭程序
         this.setResizable(false);
         this.add(loginJPanel(), BorderLayout.CENTER);
-        this.setVisible(true);
     }
 
     private JPanel loginJPanel() {
@@ -117,10 +116,15 @@ public class LoginInterFace extends JFrame {
     }
 
     /**
-     * 登录设置通道
+     * 登录设置通道,激活
      * @param channelFuture
      */
     public void setChannelFuture(ChannelFuture channelFuture) {
         this.channelFuture = channelFuture;
+        this.setVisible(true);
+    }
+
+    public void closed() {
+        System.exit(0);
     }
 }

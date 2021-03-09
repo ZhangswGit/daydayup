@@ -15,9 +15,11 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Configuration("AliyunProperties")
-@PropertySource("classpath:config/aliyun.properties")
+@PropertySource(value = AliyunProperties.ALIYUN_PROPERTIES_PATH, ignoreResourceNotFound = true)
 @ConfigurationProperties(prefix = "aliyun", ignoreUnknownFields = false)
 public class AliyunProperties {
+
+    public static final String ALIYUN_PROPERTIES_PATH = "file:/home/swap/config/aliyun.properties";
 
     private String regionId;
     private String accessKeyId;

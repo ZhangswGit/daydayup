@@ -1,0 +1,15 @@
+#基于Java环境
+FROM openjdk:8-jdk-alpine
+#维护者信息
+MAINTAINER Zhangsw
+
+#赋值jar包
+COPY target/swap-server-*.jar /home/app.jar
+COPY aliyun.properties /home/swap/config/
+COPY server.properties /home/swap/config/
+
+#进入容器默认目录
+WORKDIR /home/
+
+#启动容器命令
+CMD ["java","-jar","/home/app.jar"]

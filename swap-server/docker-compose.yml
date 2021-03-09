@@ -1,0 +1,14 @@
+version: '3'
+services:
+  swap-server:
+    image: swap-server:master
+    container_name: swap-server
+    restart: always
+    network_mode: bridge
+    volumes:
+      - ./aliyun.properties:/home/swap/config/aliyun.properties
+      - ./server.properties:/home/swap/config/server.properties
+      - ./swap/logs/:/home/swap/logs
+    ports:
+      - 8082:8082
+      - 8077:8077

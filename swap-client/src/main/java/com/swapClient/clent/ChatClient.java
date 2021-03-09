@@ -43,6 +43,8 @@ public class ChatClient {
 
     private final int SERVER_PORT = PropertiesUtils.getAsInteger("server.port");
 
+    //重启次数
+    private static int restartTimes = 0;
 
     public void start() {
 
@@ -73,6 +75,17 @@ public class ChatClient {
             if (future.isSuccess()) {
                 mainInterface.setChannelFuture(future);
                 loginInterFace.setChannelFuture(future);
+                restartTimes = 0;
+            } else if(restartTimes > 2) {
+                log.error("client start fail ,please check the configuration!");
+                mainInterface.closed();
+                loginInterFace.closed();
+            } else {
+                //重启
+                log.debug("reconnect : [{}:{}]", SERVER_IP, SERVER_PORT);
+                Thread.sleep(restartTimes * 10000l);
+                restartTimes ++;
+                start();
             }
         });
     }

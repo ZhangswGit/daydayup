@@ -223,4 +223,8 @@ public class MainInterface extends JFrame {
     public void setChannelFuture(ChannelFuture channelFuture) {
         this.channelFuture = channelFuture;
     }
+
+    public void closed() {
+        System.exit(0);
+    }
 }

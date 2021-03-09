@@ -14,9 +14,11 @@ import org.springframework.context.annotation.PropertySource;
 
 @Data
 @Configuration("NettyProperties")
-@PropertySource("classpath:config/server.properties")
+@PropertySource(value = NettyProperties.NETTY_PROPERTIES_PATH, ignoreResourceNotFound = true)
 @ConfigurationProperties(prefix = "netty", ignoreUnknownFields = false)
 public class NettyProperties {
 
-    private int port;
+    public static final String NETTY_PROPERTIES_PATH = "file:/home/swap/config/server.properties";
+
+    private int port = 8082;
 }

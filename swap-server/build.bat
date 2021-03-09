@@ -1,0 +1,1 @@
+docker build -t swap-server:master -f DockerFile .
