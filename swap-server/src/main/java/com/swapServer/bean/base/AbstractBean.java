@@ -1,4 +1,4 @@
-package com.swapServer.bean;
+package com.swapServer.bean.base;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;

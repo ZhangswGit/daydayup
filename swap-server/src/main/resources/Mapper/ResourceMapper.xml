@@ -3,11 +3,12 @@
 <mapper namespace="com.swapServer.mapper.ResourceMapper">
 
     <select id="findAllResourceByRoleId" resultMap="com.swapServer.mapper.CommonMapper.ResourceResultMap">
-        select r.* from resource r
-        left join
-        role_resource rr
-        on rr.resource_id = r.id
-        and rr.role_id = #{roleId} and r.is_delete = 0
+        select re.* from resource re
+        left join role_resource rr
+        on rr.resource_id = re.id
+        left join role r
+        on r.id = #{roleId}
+        where rr.role_id = #{roleId} and re.is_delete = 0 and r.is_delete = 0;
     </select>
     
 </mapper>

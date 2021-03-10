@@ -1,4 +1,4 @@
-package com.swapServer.bean;
+package com.swapServer.bean.system;
 
 import org.springframework.context.ApplicationEvent;
 

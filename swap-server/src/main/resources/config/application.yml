@@ -24,4 +24,4 @@ logging:
   level:
     ROOT: info
     org.springframework.security: debug
-    com.connecttoweChat.mapper: debug
+    com.swapServer.mapper: debug

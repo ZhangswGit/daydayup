@@ -56,12 +56,11 @@
     </select>
 
     <select id="findAllResourceByRoleId" resultMap="ResourceResultMap">
-        select
-        re.*
-        from resource re
-        left join
-        role_resource rr
+        select re.* from resource re
+        left join role_resource rr
         on rr.resource_id = re.id
-        where rr.role_id = #{id}
+        left join role r
+        on r.id = #{id}
+        where rr.role_id = #{id} and re.is_delete = 0 and r.is_delete = 0;
     </select>
 </mapper>

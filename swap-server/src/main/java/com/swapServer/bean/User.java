@@ -1,19 +1,18 @@
 package com.swapServer.bean;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.swapServer.bean.base.SystemBean;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Tolerate;
 
-import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 @Data
 @Builder
 @TableName("user")
-public class User extends SystemBean{
+public class User extends SystemBean {
 
     @Tolerate
     public User(){}

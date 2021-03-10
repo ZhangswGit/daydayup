@@ -1,0 +1,1 @@
+java -jar ./target/swap-client-0.0.1-SNAPSHOT.jar 127.0.0.1 8077

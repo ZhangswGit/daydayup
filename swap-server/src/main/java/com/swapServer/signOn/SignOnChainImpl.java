@@ -2,7 +2,7 @@ package com.swapServer.signOn;
 
 import com.swapServer.utils.IPUtils;
 import com.swapServer.utils.SecurityUtils;
-import com.swapServer.bean.UserOnlineEvent;
+import com.swapServer.bean.system.UserOnlineEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;

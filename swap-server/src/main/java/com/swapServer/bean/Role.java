@@ -1,6 +1,7 @@
 package com.swapServer.bean;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.swapServer.bean.base.SystemBean;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Tolerate;

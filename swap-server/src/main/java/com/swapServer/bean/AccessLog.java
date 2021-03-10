@@ -1,6 +1,7 @@
 package com.swapServer.bean;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.swapServer.bean.base.AbstractBean;
 import com.swapServer.constants.LogType;
 import lombok.Data;
 
@@ -8,7 +9,7 @@ import java.time.Instant;
 
 @Data
 @TableName("access_log")
-public class AccessLog extends AbstractBean{
+public class AccessLog extends AbstractBean {
     @TableId(value = "id", type = IdType.AUTO)
     private long id;
 

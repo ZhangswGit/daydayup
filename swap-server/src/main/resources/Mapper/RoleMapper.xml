@@ -5,11 +5,11 @@
     <select id="findAllRole" resultMap="com.swapServer.mapper.CommonMapper.RoleResultMap">
         select
         r.*
-        from role r
+        from role r where r.is_delete  = 0;
     </select>
 
     <select id="findRoleById" resultMap="com.swapServer.mapper.CommonMapper.RoleResultMap">
-        select * from role where id = #{id}
+        select * from role where id = #{id}  where r.is_delete  = 0;
     </select>
 
 </mapper>

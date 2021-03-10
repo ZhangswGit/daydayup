@@ -1,0 +1,4 @@
+2021-03-10 09:48:48,998 DEBUG (ChatClient.java:93)- reconnect : [192.168.50.121:8888]
+2021-03-10 09:48:51,010 DEBUG (ChatClient.java:93)- reconnect : [192.168.50.121:8888]
+2021-03-10 09:49:03,018 DEBUG (ChatClient.java:93)- reconnect : [192.168.50.121:8888]
+2021-03-10 09:49:25,032 ERROR (ChatClient.java:88)- client start fail ,please check the configuration!

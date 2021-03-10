@@ -21,7 +21,7 @@
     <select id="findUserById" resultMap="com.swapServer.mapper.CommonMapper.UserResultMap">
         select
         u.*
-        from user u where u.id = #{id}
+        from user u where u.id = #{id} and is_delete = 0;
     </select>
 
     <select id="findUserByNameOrPhoneOrEmail" resultMap="com.swapServer.mapper.CommonMapper.UserResultMap">
@@ -46,7 +46,7 @@
     </select>
 
     <update id="deleteByLogic">
-        update user set is_delete = id where id = #{id}
+        update user set is_delete = id where id = #{id} and is_delete = 0;
     </update>
 
 </mapper>

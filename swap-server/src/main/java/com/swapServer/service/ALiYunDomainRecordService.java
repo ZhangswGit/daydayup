@@ -34,7 +34,7 @@ public class ALiYunDomainRecordService {
                 defaultProperties.getRegionId(), defaultProperties.getAccessKeyId(), defaultProperties.getAccessKeySecret());
         client = new DefaultAcsClient(profile);
         gson = new Gson();
-        log.info("create aliyun IClientProfile success! param:{},{},{}", defaultProperties.getRegionId(), defaultProperties.getAccessKeyId(), defaultProperties.getAccessKeySecret());
+        log.info("create aliyun IClientProfile success! param:{}", defaultProperties.getRegionId());
     }
 
     public String createDomainRecord(String platformDomain) {

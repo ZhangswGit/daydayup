@@ -1,7 +1,6 @@
 package com.swapClient.clent;
 
 import bean.Message;
-import com.swapClient.util.PropertiesUtils;
 import com.swapClient.window.LoginInterFace;
 import com.swapClient.window.MainInterface;
 import com.swapCommon.coding.MessageDecoder;
@@ -24,6 +23,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ChatClient {
 
+    //服务器地址
+    private String serverHost = "127.0.0.1";
+
+    //服务端口
+    private int serverPort = 8077;
+
     /**
      * 客户端窗口
      */
@@ -34,14 +39,17 @@ public class ChatClient {
      */
     private LoginInterFace loginInterFace;
 
+    public ChatClient(MainInterface mainInterface, LoginInterFace loginInterFace, String serverHost, int serverPort) {
+        this.mainInterface = mainInterface;
+        this.loginInterFace = loginInterFace;
+        this.serverHost = serverHost;
+        this.serverPort = serverPort;
+    }
+
     public ChatClient(MainInterface mainInterface, LoginInterFace loginInterFace) {
         this.mainInterface = mainInterface;
         this.loginInterFace = loginInterFace;
     }
-
-    private final String SERVER_IP = PropertiesUtils.getAsString("server.host");
-
-    private final int SERVER_PORT = PropertiesUtils.getAsInteger("server.port");
 
     //重启次数
     private static int restartTimes = 0;
@@ -71,7 +79,7 @@ public class ChatClient {
                     }
                 });
 
-        bootstrap.connect(SERVER_IP, SERVER_PORT).addListener((ChannelFutureListener) future -> {
+        bootstrap.connect(serverHost, serverPort).addListener((ChannelFutureListener) future -> {
             if (future.isSuccess()) {
                 mainInterface.setChannelFuture(future);
                 loginInterFace.setChannelFuture(future);
@@ -82,7 +90,7 @@ public class ChatClient {
                 loginInterFace.closed();
             } else {
                 //重启
-                log.debug("reconnect : [{}:{}]", SERVER_IP, SERVER_PORT);
+                log.debug("reconnect : [{}:{}]", serverHost, serverPort);
                 Thread.sleep(restartTimes * 10000l);
                 restartTimes ++;
                 start();

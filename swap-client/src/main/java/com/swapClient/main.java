@@ -1,12 +1,14 @@
 package com.swapClient;
 
-import bean.SwapUser;
 import com.swapClient.clent.ChatClient;
+import com.swapClient.window.LoginInterFace;
 import com.swapClient.window.MainInterface;
-import io.netty.channel.ChannelFuture;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 
 /**
  * @Data :  2021/3/2 14:17
@@ -14,20 +16,22 @@ import java.util.List;
  * @Descripe : TODO
  * @Version : 0.1
  */
+@Slf4j
 public class main {
 
     public static void main(String[] args) {
-        //登录
-
-//        List<SwapUser> users = new ArrayList<>();
-//        users.add(SwapUser.builder().userName("王五").userId(222444).build());
-//        users.add(SwapUser.builder().userName("李四").userId(333888l).build());
-//
-//        SwapUser localUser = SwapUser.builder().userName("张三").userId(12138l).build();
-//        MainInterface mainInterface = new MainInterface("聊天窗口", users, localUser);
-//
-//        ChatClient chatClient1 = new ChatClient(localUser, mainInterface);
-//        chatClient1.start();
-
+        if (args.length == 0) {
+            log.info("client start fail ,please check the configuration! {}", args);
+            return;
+        }
+        try {
+            new URL("http", args[0], args[1]);
+        } catch (MalformedURLException e) {
+            log.info("client start fail ,please check the configuration!", args);
+        }
+        MainInterface mainInterface = MainInterface.getMainInterface();
+        LoginInterFace loginInterFace = LoginInterFace.getLoginInterFace();
+        ChatClient chatClient = new ChatClient(mainInterface, loginInterFace, args[0], Integer.parseInt(args[1]));
+        chatClient.start();
     }
 }

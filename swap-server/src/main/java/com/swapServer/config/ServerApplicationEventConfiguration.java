@@ -1,6 +1,6 @@
 package com.swapServer.config;
 
-import com.swapServer.bean.UserOnlineEvent;
+import com.swapServer.bean.system.UserOnlineEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
