@@ -19,8 +19,8 @@ public class LionSouIPServiceTest extends AbstractBeanTest {
     
     @Test
     public void getIp(){
-        String ip = "103.85.173.226";
-        String county = lionSouIPService.getCountry(ip);
-        log.info(county);
+        String ip = "47.56.251.92";
+        LionSouIPService.LionSouIP lionSouIP = lionSouIPService.getLionSouIP(ip);
+        log.info(lionSouIP + "");
     }
 }

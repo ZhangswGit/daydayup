@@ -24,13 +24,15 @@ public class CompressFileAnalysisEngine extends AnalysisEngine {
         if (analyzed == null){
             return;
         }
-        CompressFile compressFile = (CompressFile) analyzed;
-        if (compressFile.isDirectory()) {
-            return;
-        }
 
-        Task task = new Task(analyzer, compressFile);
-        executorService.submit(task);
+        if (analyzer.support(analyzed)) {
+            CompressFile compressFile = (CompressFile) analyzed;
+            if (compressFile.isDirectory()) {
+                return;
+            }
+            Task task = new Task(analyzer, compressFile);
+            executorService.submit(task);
+        }
     }
 
     class Task implements Runnable {

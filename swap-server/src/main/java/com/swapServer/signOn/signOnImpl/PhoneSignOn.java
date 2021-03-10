@@ -15,7 +15,7 @@ public class PhoneSignOn extends WebSignOn {
     @Override
     public void sign(HttpServletRequest request, HttpServletResponse response, SignOnChain signOnChain) {
         log.info(describe());
-        signOnChain.sign(request, response, false);
+        signOnChain.sign(request, response);
     }
 
     public String describe(){

@@ -15,7 +15,7 @@ public class YaXinTokenSignOn extends SingleSignOn {
     @Override
     public void sign(HttpServletRequest request, HttpServletResponse response, SignOnChain signOnChain) {
         log.info(producer());
-        signOnChain.sign(request, response, false);
+        signOnChain.sign(request, response);
     }
 
     @Override

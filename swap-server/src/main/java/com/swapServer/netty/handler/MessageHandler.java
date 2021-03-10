@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swapCommon.define.Define;
 import com.swapCommon.header.MessageHead;
 import com.swapServer.constants.ErrorAlertMessages;
-import com.swapServer.netty.Model.UserModel;
+import com.swapServer.netty.Model.ClientUserModel;
 import com.swapServer.service.UserService;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -110,11 +110,11 @@ public class MessageHandler extends ChannelInboundHandlerAdapter {
     private void authenticateHandle(ChannelHandlerContext channelHandlerContext, Message message) {
 
         Object body = message.getBody();
-        UserModel userModel;
+        ClientUserModel clientUserModel;
         try {
             //账号密码认证
             LoginUser loginUser = objectMapper.convertValue(body, LoginUser.class);
-            userModel = userService.auth(loginUser.getUserName(), loginUser.getPassWord());
+            clientUserModel = userService.auth(loginUser.getUserName(), loginUser.getPassWord());
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             channelHandlerContext.channel().writeAndFlush(Message.builder()
@@ -125,7 +125,7 @@ public class MessageHandler extends ChannelInboundHandlerAdapter {
             return;
         }
 
-        if (userModel == null) {
+        if (clientUserModel == null) {
             //认证失败
             channelHandlerContext.channel().writeAndFlush(Message.builder()
                     .messageHead(MessageHead.AUTH_FAIL)
@@ -135,13 +135,13 @@ public class MessageHandler extends ChannelInboundHandlerAdapter {
             return;
         }
 
-        ChannelHandlerContext channelHandlerContextOld = userChannelHandlerContextMap.get(userModel.getUserId());
+        ChannelHandlerContext channelHandlerContextOld = userChannelHandlerContextMap.get(clientUserModel.getUserId());
         if (channelHandlerContextOld != null) {
             //先下线已经登陆的用户
             offline(channelHandlerContextOld, true);
         }
         //上线
-        online(userModel, channelHandlerContext);
+        online(clientUserModel, channelHandlerContext);
     }
 
     private void mutualHandle(ChannelHandlerContext channelHandlerContext, Message message) {
@@ -174,13 +174,13 @@ public class MessageHandler extends ChannelInboundHandlerAdapter {
      * @param userModel
      * @param channelHandlerContext
      */
-    void online(UserModel userModel, ChannelHandlerContext channelHandlerContext) {
+    void online(ClientUserModel userModel, ChannelHandlerContext channelHandlerContext) {
         userChannelHandlerContextMap.put(userModel.getUserId(), channelHandlerContext);
         channelHandlerContextUserMap.put(channelHandlerContext, userModel.getUserId());
         clientCount.add(channelHandlerContext);
 
         //除当前用户之外的用户
-        List<UserModel> users = userService.findAllUser();
+        List<ClientUserModel> users = userService.findAllUser();
 
         channelHandlerContext.channel().writeAndFlush(Message.builder()
                 .messageHead(MessageHead.AUTH_SUCCESS)

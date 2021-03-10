@@ -4,10 +4,8 @@ import com.swapClient.clent.ChatClient;
 import com.swapClient.window.LoginInterFace;
 import com.swapClient.window.MainInterface;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.CollectionUtils;
 
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 
 /**

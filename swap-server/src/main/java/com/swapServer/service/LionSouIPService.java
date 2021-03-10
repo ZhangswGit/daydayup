@@ -45,32 +45,23 @@ public class LionSouIPService {
             log.warn("Invalid ip address for country '{}' - {}", ip, e.getMessage());
             return null;
         }
-        String region = dataBlock.getRegion();
-        if (region == null) {
+        if (dataBlock == null) {
             return null;
         }
+        String region = dataBlock.getRegion();
+
+        if (StringUtils.isBlank(region)) {
+            return null;
+        }
+
         String[] split = StringUtils.split(region, "|");
         return LionSouIP.builder()
                 .ip(ip)
                 .country(split[0])
                 .province(split[2])
                 .city(split[3])
+                .isp(split[4])
                 .build();
-    }
-
-
-    public String getCountry(String ip) {
-        DataBlock dataBlock = null;
-        try {
-
-            dataBlock = dbSearcher.binarySearch(ip);
-        } catch (IOException e) {
-            log.warn("Invalid ip address for country '{}' - {}", ip, e.getMessage());
-            return null;
-        }
-        String region = dataBlock.getRegion();
-        String[] split = StringUtils.split(region, "|");
-        return split[0];
     }
 
     @Data
@@ -84,17 +75,6 @@ public class LionSouIPService {
 
         private String city;
 
-        private Double isp;
-
-        @Override
-        public String toString() {
-            return "LionSouIP:{" +
-                    "ip='" + ip + '\'' +
-                    ", country='" + country + '\'' +
-                    ", province='" + province + '\'' +
-                    ", city='" + city + '\'' +
-                    ", isp=" + isp +
-                    '}';
-        }
+        private String isp;
     }
 }

@@ -4,6 +4,7 @@ import com.swapServer.utils.IPUtils;
 import com.swapServer.utils.SecurityUtils;
 import com.swapServer.bean.system.UserOnlineEvent;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,13 +31,8 @@ public class SignOnChainImpl implements SignOnChain {
 
     @Override
     public void sign(HttpServletRequest request, HttpServletResponse response) {
-        sign(request, response, false);
-    }
-
-    @Override
-    public void sign(HttpServletRequest request, HttpServletResponse response, boolean isSignOn) {
-        if (isSignOn) {
-            String currentUser = SecurityUtils.currentUser();
+        String currentUser = SecurityUtils.currentUser();
+        if (StringUtils.isNotBlank(currentUser)) {
             String clientAddress = IPUtils.getClientAddress(request);
             UserOnlineEvent userOnlineEvent = new UserOnlineEvent(SecurityContextHolder.getContext().getAuthentication(), currentUser, clientAddress);
             applicationContext.publishEvent(userOnlineEvent);

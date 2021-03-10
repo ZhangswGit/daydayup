@@ -9,7 +9,7 @@ import com.swapServer.mapper.UserMapper;
 import com.swapServer.model.request.CreateUserRequest;
 import com.swapServer.model.request.QueryUserRequest;
 import com.swapServer.model.request.UpdateUserRequest;
-import com.swapServer.netty.Model.UserModel;
+import com.swapServer.netty.Model.ClientUserModel;
 import com.swapServer.transform.UserTransform;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -21,7 +21,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -58,6 +57,7 @@ public class UserService extends MybatisPlusServiceEnhancer<UserMapper, User>{
                 .roleId(createUserRequest.getRoleId())
                 .build();
         this.save(user);
+        log.info("create user : {}", user);
         return user;
     }
 
@@ -91,6 +91,7 @@ public class UserService extends MybatisPlusServiceEnhancer<UserMapper, User>{
         if (update){
             updateById(oldUser);
         }
+        log.info("update user : {}", oldUser);
         return oldUser;
     }
 
@@ -105,14 +106,14 @@ public class UserService extends MybatisPlusServiceEnhancer<UserMapper, User>{
     }
 
     //client端账号密码认证
-    public UserModel auth(String userName, String passWord) {
+    public ClientUserModel auth(String userName, String passWord) {
         MyUsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new MyUsernamePasswordAuthenticationToken(userName, passWord);
         Authentication authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-        UserModel userModel = Optional.ofNullable(authenticate).map(x -> {
+        ClientUserModel userModel = Optional.ofNullable(authenticate).map(x -> {
             Optional<User> user = userMapper.findUserByNameOrPhoneOrEmail(userName);
             if (user.isPresent()) {
                 log.debug("client userName:{},password:{} auth success", userName, passWord);
-                return userTransform.toModel(user.get());
+                return userTransform.toClientModel(user.get());
             }
             return null;
         }).orElse(null);
@@ -128,12 +129,13 @@ public class UserService extends MybatisPlusServiceEnhancer<UserMapper, User>{
      * client 获取当前系统所有用户
      * @return
      */
-    public List<UserModel> findAllUser() {
+    public List<ClientUserModel> findAllUser() {
         List<User> userList = userMapper.selectList(null);
         if (CollectionUtils.isEmpty(userList)) {
             return null;
         }
-        List<UserModel> userModels = userList.stream().map(userTransform::toModel).collect(Collectors.toList());
+        List<ClientUserModel> userModels = userList.stream().map(userTransform::toClientModel).collect(Collectors.toList());
         return userModels;
     }
+
 }

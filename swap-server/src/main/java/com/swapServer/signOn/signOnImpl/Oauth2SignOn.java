@@ -14,6 +14,6 @@ public class Oauth2SignOn extends SingleSignOn {
 
     @Override
     public void sign(HttpServletRequest request, HttpServletResponse response, SignOnChain signOnChain) {
-
+        signOnChain.sign(request, response);
     }
 }

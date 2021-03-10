@@ -1,0 +1,25 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet author="zhangsw (generated)" id="1615346244547-1">
+        <createTable tableName="systemLog">
+            <column autoIncrement="true" name="id" remarks="ID" type="BIGINT" startWith="1">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="type" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="detail" type="CLOB"/>
+            <column name="create_user" type="VARCHAR(50)" defaultValue="sysAdmin">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="timestamp"/>
+            <column name="update_user" type="VARCHAR(50)"/>
+            <column name="update_date" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,12 +1,9 @@
 package com.swapServer.signOn.signOnImpl;
 
-import com.swapServer.config.jwtToken.TokenProvide;
 import com.swapServer.config.security.MyUsernamePasswordAuthenticationToken;
 import com.swapServer.signOn.SignOnChain;
 import com.swapServer.signOn.WebSignOn;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -18,12 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @Service
 public class UserPassWordAndCodeSignOn extends WebSignOn {
-
-    @Autowired
-    TokenProvide tokenProvide;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
     @Override
     public void sign(HttpServletRequest request, HttpServletResponse response, SignOnChain signOnChain) {
@@ -39,12 +30,11 @@ public class UserPassWordAndCodeSignOn extends WebSignOn {
             tokenCookie.setPath("/");
             tokenCookie.setHttpOnly(true);
             response.addCookie(tokenCookie);
-            signOnChain.sign(request, response, true);
             return;
         } catch (Exception e) {
             e.printStackTrace();
             log.error("name:{}/password:{} login fail ! {}", userName, passWord, e.getMessage());
         }
-        signOnChain.sign(request, response, false);
+        signOnChain.sign(request, response);
     }
 }
