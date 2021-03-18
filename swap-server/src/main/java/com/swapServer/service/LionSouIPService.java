@@ -48,6 +48,7 @@ public class LionSouIPService {
         if (dataBlock == null) {
             return null;
         }
+        //pattern:国家|区域|省份|城市|ISP_
         String region = dataBlock.getRegion();
 
         if (StringUtils.isBlank(region)) {

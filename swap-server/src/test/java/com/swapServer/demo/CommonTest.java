@@ -11,7 +11,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.compress.utils.IOUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.TextNode;
+import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Test;
+import org.lionsoul.ip2region.DataBlock;
+import org.lionsoul.ip2region.DbConfig;
+import org.lionsoul.ip2region.DbMakerConfigException;
+import org.lionsoul.ip2region.DbSearcher;
+import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.scheduling.annotation.AsyncResult;
@@ -19,14 +31,19 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.crypto.spec.SecretKeySpec;
+import javax.swing.*;
 import javax.xml.bind.DatatypeConverter;
 import java.io.*;
+import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.security.Key;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -265,6 +282,27 @@ public class CommonTest {
     public void mavenTest() {
     }
 
-    public static void main(String[] args) {
+    @Test
+    public void binaryTest() {
+        String c = "sad";
+        char[] chars = c.toCharArray();
+        for (int i = 0; i < chars.length ; i++) {
+            Integer.toBinaryString(chars[1]);
+        }
+    }
+
+    @Test
+    public void openCV() {
+        String fileName = "D:" + File.separator + "chrom" + File.separator + "1.jpg";
+        Mat src = Imgcodecs.imread(fileName);
+
+        Mat gold = src.clone();
+
+        Imgcodecs.imwrite(String.format("D:" + File.separator + "chrom" + File.separator + "tmp"+ File.separator + "%d.jpg", System.currentTimeMillis()), gold);
+    }
+
+    @Test
+    public void javaPath(){
+        System.out.println(System.getProperty("java.library.path"));
     }
 }

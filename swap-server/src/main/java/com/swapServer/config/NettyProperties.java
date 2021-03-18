@@ -20,5 +20,7 @@ public class NettyProperties {
 
     public static final String NETTY_PROPERTIES_PATH = "file:/home/swap/config/server.properties";
 
-    private int port = 8082;
+    private int port = 8077;
+
+    private String filePath;
 }

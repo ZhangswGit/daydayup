@@ -25,7 +25,7 @@ import java.util.Enumeration;
  * @Version : 0.1
  */
 @Slf4j
-@Service("CompressFileAnalyzerImpl")
+@Service
 public class CompressFileAnalyzerImpl implements Analyzer {
 
     @Autowired

@@ -212,9 +212,7 @@ public class UserResourceController {
                                                         .value2(user.getOrganization().getName())
                                                         .build() : null)
                                 .build());
-        if (StringUtils.isNotBlank(systemLog.getDetail())) {
-            systemLogService.save(systemLog);
-        }
+        systemLogService.save(systemLog);
         return ResponseEntity.ok(userTransform.toModel(user));
     }
 }

@@ -17,6 +17,25 @@
             <artifactId>swap-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+         <dependency>
+            <groupId>org.joone</groupId>
+            <artifactId>joone-engine</artifactId>
+             <version>1.6.5</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../Evn/localLib/joone-engine.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.opencv</groupId>
+            <artifactId>opencv</artifactId>
+            <version>4.0.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../Evn/localLib/opencv-401.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.11.3</version>
+        </dependency>
     </dependencies>
 
     <build>

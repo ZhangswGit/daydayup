@@ -1,7 +1,7 @@
 package com.swapServer.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.swapServer.analysis.CompressFileAnalysisEngine;
+import com.swapServer.analysis.AnalysisEngine;
 import com.swapServer.analysis.file.CompressFile;
 import com.swapServer.mapper.AccessLogMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -25,25 +26,8 @@ import java.util.Map;
 @RequestMapping("/nginx")
 public class NginxController {
 
-    @Autowired
-    private CompressFileAnalysisEngine analysisEngine;
-
-
-//    private static final String PAC_TEMPLATE =
-//            "var proxyDomains = [\"jira.tistarlocal.com\",\"192.168.50.83\",\"192.168.50.82\",\"www.baidu.com\"];<br/>" + // ['outlook.office365.com']
-//                    "function FindProxyForURL(url, host) {<br/>" +
-//                    "  // Proxies only http(s) and ws(s)<br/>" +
-//                    "  if (url.substring(0, 4) != 'http' && (url.substring(0, 2) != 'ws')) {<br/>" +
-//                    "    return \"DIRECT\";<br/>" +
-//                    "  }<br/>" +
-//                    "  for (var d in proxyDomains) {<br/>" +
-//                    "    if (shExpMatch(host, proxyDomains[d])) {<br/>" +
-//                    "      return \"PROXY 192.168.50.160:8001\";<br/>" +
-////        "      return \"PROXY %s; DIRECT\";\n" +
-//                    "    }<br/>" +
-//                    "  }<br/>" +
-//                    "  return \"DIRECT\";<br/>" +
-//                    "}<br/>";
+    @Resource(description = "CompressFileAnalysisEngine")
+    private AnalysisEngine analysisEngine;
 
     private static final String PAC_TEMPLATE =
             "var proxyDomains = [\"jira.tistarlocal.com\",\"192.168.50.83\",\"192.168.50.82\",\"www.baidu.com\"];\r\n" + // ['outlook.office365.com']

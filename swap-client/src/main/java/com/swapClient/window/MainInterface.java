@@ -6,6 +6,7 @@ import com.swapCommon.define.Define;
 import com.swapCommon.header.MessageHead;
 import io.netty.channel.ChannelFuture;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.compress.utils.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 
@@ -13,10 +14,8 @@ import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
+import java.io.File;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -50,7 +49,11 @@ public class MainInterface extends JFrame {
 
     private JButton jButton;//发送按钮
 
+    private JButton jButtonFile;//打开文件
+
     private JComboBox jComboBox;//下拉选项
+
+    private JFileChooser jFileChooser;//文件选择器
 
     private SwapUser goalSwapUser;//被选中用户
 
@@ -59,6 +62,10 @@ public class MainInterface extends JFrame {
     private JPanel northJPanel;
 
     private JPanel southJPanel;
+
+    //图片区域
+    private Insets insets = new Insets(0, 20, 0, 0);
+    private Image image;
 
     private static MainInterface mainInterface;//主窗口 单例
 
@@ -75,13 +82,22 @@ public class MainInterface extends JFrame {
 
     private MainInterface(String title) {
         this.northJPanel = new JPanel();
-        this.jTextArea = new JTextArea(20, 30);
+        this.jTextArea = new JTextArea(20, 30){
+            public void paint(Graphics g) {
+                g.drawImage(image, 0, 0, this);
+                super.paint(g);
+            }
+        };
         this.title = title;
 
         this.southJPanel = new JPanel();
         this.jTextField = new JTextField(20);
         this.jComboBox = new JComboBox();
         this.jButton = new JButton("发送");
+        this.jButtonFile = new JButton("选择文件");
+        this.jFileChooser = new JFileChooser();
+        jFileChooser.setMultiSelectionEnabled(false);//设置只能单选
+        jFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);//设置只能选择文件
 
         this.setTitle(title);
         this.setSize(600, 500);//窗口大小
@@ -146,6 +162,7 @@ public class MainInterface extends JFrame {
     private JPanel northJPanel() {
         jTextArea.setLineWrap(true);//激活换行
         jTextArea.setWrapStyleWord(true);//激活断行不断字功能
+        jTextArea.setEditable(false);//设置不可编辑
         northJPanel.add(new JScrollPane(jTextArea));//激活滚动条
         return northJPanel;
     }
@@ -155,12 +172,16 @@ public class MainInterface extends JFrame {
         //下拉框监听被选项
         jComboBox.addPopupMenuListener(new PopupMenuListener() {
             @Override
-            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {}
+            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+            }
+
             public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
                 goalSwapUser = (SwapUser) jComboBox.getSelectedItem();
                 log.info("selected goalUser :{}", goalSwapUser);
             }
-            public void popupMenuCanceled(PopupMenuEvent e) {}
+
+            public void popupMenuCanceled(PopupMenuEvent e) {
+            }
         });
         //按钮监听
         jButton.addActionListener(new ActionListener() {
@@ -191,9 +212,24 @@ public class MainInterface extends JFrame {
             }
         });
 
+        jButtonFile.addMouseListener(new MouseAdapter() {
+            @Override
+
+            public void mouseClicked(MouseEvent e) {
+                int value = jFileChooser.showOpenDialog(MainInterface.this);
+                jFileChooser.setMultiSelectionEnabled(true);
+                if (value == jFileChooser.APPROVE_OPTION) {
+                    File file = jFileChooser.getSelectedFile();
+                    image = new ImageIcon(file.getPath()).getImage();
+                    log.info("file name" + file.getName());
+                }
+            }
+        });
+
         southJPanel.add(jComboBox, BorderLayout.WEST);
         southJPanel.add(jTextField, BorderLayout.CENTER);
         southJPanel.add(jButton, BorderLayout.SOUTH);
+        southJPanel.add(jButtonFile, BorderLayout.AFTER_LINE_ENDS);
 
         return southJPanel;
     }
@@ -212,6 +248,12 @@ public class MainInterface extends JFrame {
      * @param message
      */
     public void addMessage(String message) {
+        ImageIcon icon = null;
+        try {
+            icon = new ImageIcon("D:/chrom/1.jpg");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         jTextArea.append(message);
     }
 

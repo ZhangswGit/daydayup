@@ -173,12 +173,6 @@
             <artifactId>netty-all</artifactId>
             <version>4.1.45.Final</version>
         </dependency>
-        <!--<dependency>
-            <groupId>org.joone</groupId>
-            <artifactId>joone-engine</artifactId>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/Evn/localLib/joone-engine.jar</systemPath>
-        </dependency>-->
     </dependencies>
 
 </project>
