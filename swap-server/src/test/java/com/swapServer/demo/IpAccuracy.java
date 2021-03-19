@@ -117,9 +117,9 @@ public class IpAccuracy {
                 Task task = createTask(domain, e2);
                 try{
                     Future<Long> future = executorService.submit(task);
-                    if (future.isDone()) {
-                        log.info("spend times : {}", future.get() - start);
+                    while (!future.isDone()) {
                     }
+                    log.info("spend times : {}", future.get() - start);
                 }catch (Exception e) {
                     continue;
                 }
@@ -221,7 +221,7 @@ public class IpAccuracy {
         public Long call() throws IOException {
 
             log.info("start check startIp:{} --> endIp:{}", toIP(start), toIP(end));
-            for (long ip = start; ip <= end; ip += 0xfe) {
+            for (long ip = start; ip <= end; ip += 0xff) {
                 String hostAddress = toIP(ip).getHostAddress();
                 DataBlock dataBlock = dbSearcher.btreeSearch(hostAddress);
                 String[] split = StringUtils.split(dataBlock.getRegion(), "|");
@@ -230,17 +230,17 @@ public class IpAccuracy {
                 } else if ("中国".equals(split[0]) && country.contains("中国")) {
                     //匹配省
                     if ((StringUtils.isBlank(province) || province.contains(split[2]))
-//                            && (StringUtils.isBlank(city) || city.contains(split[3]) ||  "0".equals(split[3]))
+                            && (StringUtils.isBlank(city) || city.contains(split[3]) ||  "0".equals(split[3]))
                     ) {
                         //省市都为空，市为空 匹配成功
                         success.getAndAdd(1);
                     } else {
                         fail.getAndAdd(1);
-                        log.info("check currentIp :{} city fail province:{} city:{} -> {}", hostAddress, province, city, split);
+                        log.info("check currentIp :{} city fail [province:{} city:{}] -> [{}]", hostAddress, province, city, split);
                     }
                 } else {
                     fail.getAndAdd(1);
-                    log.info("check currentIp :{} county fail county:{} -> {}", hostAddress, country, split);
+                    log.info("check currentIp :{} county fail county:[{}] -> [{}]", hostAddress, country, split);
                 }
 //                if (country.contains(split[0]) || (!"0".equals(split[0]) && text.contains(split[0])) || (!"0".equals(split[3]) && text.contains(split[3])) || (!"0".equals(split[4]) && text.contains(split[4]))) {
 //                    success.getAndAdd(1);
